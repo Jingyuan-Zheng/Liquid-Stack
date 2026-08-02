@@ -1,6 +1,16 @@
 # Liquid Stack
 
-Liquid Stack is a polished bilingual Hugo starter built on the vendored [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4. It includes a custom profile-style home page, responsive article cards, dark mode, search, archives, taxonomy widgets, and ready-to-edit English and Simplified Chinese sample posts.
+[简体中文](README.zh.md) · [Live demo](https://jingyuan-zheng.github.io/Liquid-Stack/) · [Use this template](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
+
+Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blog foundation and adds a profile homepage, launchpad, interactive photo wall, content dashboard, Sveltia CMS, enhanced Waline integration, friend-link workflow, bilingual sitemaps, and ready-to-edit sample content.
+
+## Create your site from the template
+
+1. Select **Use this template** on GitHub, then create a public repository.
+2. Open `hugo.yaml` and replace `baseURL`, the title, copyright, sidebar text, and social links.
+3. Replace the sample data under `data/` and the visual assets under `static/img/`.
+4. In **Settings → Pages**, select **GitHub Actions** as the source.
+5. Push to `main`. The included workflow builds and publishes the site.
 
 ## Quick start
 
@@ -12,7 +22,7 @@ Liquid Stack is a polished bilingual Hugo starter built on the vendored [Hugo Th
 
 ## GitHub Pages
 
-The included workflow deploys the generated `public/` folder to GitHub Pages. Set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**, and update `baseURL` before publishing.
+The included workflow uses Hugo Extended 0.161.0 and deploys the generated `public/` directory to GitHub Pages. It also derives the correct project-site base URL from GitHub Pages during the build.
 
 ## Customization map
 
@@ -20,6 +30,12 @@ The included workflow deploys the generated `public/` folder to GitHub Pages. Se
 - `content/` — pages, categories, and posts
 - `static/img/liquid-stack/` — replaceable sample assets
 - `layouts/` — local theme extensions; upstream Stack is vendored under `themes/hugo-theme-stack/`
+- `data/launchpad/` — launchpad projects
+- `data/photo-wall/` — interactive gallery entries
+- `data/friend-links/` — friend-link cards
+- `assets/admin/` and `layouts/admin/` — generated Sveltia CMS configuration
+
+The vendored theme matches the official Stack v4.0.3 release. Liquid Stack currently supplies 23 overrides and 12 new templates from the project root. See the [complete comparison](https://jingyuan-zheng.github.io/Liquid-Stack/p/liquid-stack-customizations/).
 
 Sample text and images are generic placeholders. Replace them before launching your site.
 

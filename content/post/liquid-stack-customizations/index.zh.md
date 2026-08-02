@@ -1,55 +1,145 @@
 ---
-title: "主题改造说明：Liquid Stack 在 Stack v4 上做了什么"
-description: "逐项说明 Liquid Stack 在 Hugo Theme Stack v4.0.3 基础上新增的页面、交互和管理能力。"
+title: "从 Stack v4 到 Liquid Stack：完整改造对比"
+description: "基于官方 Hugo Theme Stack v4.0.3 的逐文件对比，说明 Liquid Stack 新增、覆盖和保留了什么。"
 date: 2026-07-21
+lastmod: 2026-08-02
 slug: liquid-stack-customizations
 categories: [教程]
-tags: [Liquid Stack, Stack v4, 功能, 配置]
+tags: [Liquid Stack, Stack v4, 主题改造, Hugo]
 ---
 
-Liquid Stack 不是用来取代 [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) 的另一套主题。项目将 Stack v4.0.3 原样放在 `themes/hugo-theme-stack/` 中，再通过根目录的模板、样式、数据和脚本补充站点能力。本页明确区分原版 Stack 已有的内容与 Liquid Stack 新增的部分。
+本文不是功能宣传，而是一次可以复核的代码对比：Liquid Stack 以 [CaiJimmy/hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3 为基线，说明原版 Stack 已经提供什么，以及本项目究竟修改了什么。
 
-## Stack v4 保留了什么
+## 对比基线与结论
 
-博客的基础体验仍来自 Stack：Hugo 内容渲染、响应式导航、文章与列表页、归档、分类和标签、搜索、深色模式、多语言路由，以及文章元信息和常规小组件。文章依然是 `content/post/` 中的标准 Hugo 内容包。
+本次对照的是 Stack 官方 v4.0.3 标签，对应 commit [`3e123a3`](https://github.com/CaiJimmy/hugo-theme-stack/commit/3e123a30b79b5d52a3a8e88a9dd678fcfd28e418)。对官方仓库与本项目 `themes/hugo-theme-stack/` 做逐文件比较后，结果是：**vendored 主题目录与官方 v4.0.3 一致**。
 
-Liquid Stack 有意不直接修改 vendored 的主题目录。新增与覆盖主要位于 `layouts/`、`assets/`、`data/` 和 `static/`；因此升级 Stack 时，可以清楚对照上游主题与本站扩展。
+也就是说，Liquid Stack 没有把改动混进 Stack 源码。全部定制都放在 Hugo 项目根目录，由 Hugo 的模板覆盖机制加载。目前共有：
 
-## 保留博客的个人主页式首页
+- 23 个覆盖官方 Stack 同名模板的文件；
+- 12 个 Stack 原版不存在的全新模板；
+- 一套独立的 `custom.scss` 与 `custom.ts` 交互层；
+- 启动台、照片墙、友链和管理入口的数据文件；
+- Sveltia CMS、Waline 扩展、Cloudflare Worker 浏览量示例与 GitHub Pages 工作流。
 
-`layouts/home.html` 将 Stack 默认的首页文章列表扩展为个人主页式布局：顶部有头像、站点介绍和社交链接，中间是快捷卡片，下面仍然保留近期文章、分页，以及 Stack 原有的右侧栏小组件。快捷卡片分别通向启动台、关于页面、仪表盘和照片墙，并没有删掉博客本身。
+因此它更准确的定位是：**保留 Stack v4 博客内核的完整站点模板**，而不是只换配色的皮肤。
 
-左侧栏由 `layouts/_partials/sidebar/left.html` 扩展：原有菜单、语言切换、深色模式和菜单图标都保留；头像角标额外打开仅供管理员使用的管理菜单。该菜单的链接来自 `data/management_links.yaml`，无需改模板。
+## 原版 Stack 保留了什么
 
-## 启动台：项目数据驱动的应用展示
+下列基础能力仍直接来自 Stack v4.0.3：响应式三栏结构、左侧导航、文章列表与文章页、归档、分类与标签、全文搜索、目录小组件、深色模式、图片处理、相关文章、多语言内容，以及 Stack 原有的评论 provider 框架。
 
-原版 Stack 没有应用启动台。`layouts/page/apps.html` 新增了这一页：`data/launchpad/*.yaml` 中的每个项目都可以配置名称、中英文标签、图标、预览图、对应文章和仓库地址。点击应用先打开预览层；“打开对应文章”可以指向公开网络地址，因此示例主题不必包含你的私人文章。
+Liquid Stack 没有重新实现这些基础能力，而是在它们之上增加站点级页面和交互。因此普通文章仍然放在 `content/post/<slug>/`，Stack 的参数与内容组织方式仍可继续使用。
 
-替换 `data/launchpad/` 中的示例数据与 `static/img/launchpad/` 中的素材即可使用自己的项目，不需要重写页面。
+## 首页：从文章列表变成完整门户
 
-## 照片墙：可拖动且保留浏览器中的排列
+原版 `layouts/home.html` 只负责输出文章列表、分页和页脚。Liquid Stack 的同名覆盖在保留文章列表、分页和右侧小组件的同时，增加了：
 
-`layouts/page/pictures.html`、`data/photo-wall/` 与 `assets/ts/custom.ts` 中的相册逻辑把普通图片列表变成照片墙。每张图拥有稳定的数据 id，会根据横图或竖图显示，可以在浏览器中拖动排序，并可点击进入聚焦查看。排列位置保存在访问者浏览器中，不会改动仓库里的源文件。
+- 头像、欢迎语、站点介绍和社交链接组成的主页头部；
+- 启动台、关于页面、仪表盘和照片墙四类快捷卡片；
+- 从 `data/launchpad/` 与 `data/photo-wall/` 自动读取的卡片预览；
+- 独立的响应式首页布局、悬停动画和深色模式样式。
 
-请为每张图片在 `data/photo-wall/` 中保留一份 YAML 条目，并把网页可直接使用的图片放进 `static/img/gallery/`。
+因此首页不是取消博客列表，而是把 Stack 的文章列表放进一个更完整的个人站点入口。
 
-## 仪表盘：从内容本身生成站点概览
+## 左侧栏与管理入口
 
-`layouts/page/dashboard.html` 直接读取 Hugo 的内容数据，显示已发布文章数、总字数、运行天数、分类分布、热门标签、按星期与小时统计的发布节奏，以及年度文章贡献热力图。对应的前端绘制逻辑位于 `assets/ts/custom.ts`。
+原版 Stack 左侧栏包含头像、站点信息、社交链接、菜单、语言切换和深色模式。Liquid Stack 保留这些结构和菜单图标，并在 `layouts/_partials/sidebar/left.html` 中加入头像角标管理入口。
 
-这是一份基于站内内容的概览，不是外部统计追踪服务。若启用评论，定制的 Waline 接入还能显示阅读量与评论数；公开使用前请先填写你自己的 Waline 服务地址。
+新增的 `layouts/_partials/sidebar/management-menu.html` 从 `data/management_links.yaml` 生成管理菜单，可统一放置 CMS、评论后台、友链申请、GitHub Pages、搜索控制台、数据分析与部署平台入口。普通访客看到的是同一套站点侧栏，管理者则可以从角标快速进入工具。
 
-## CMS、评论、友链与站点工具
+## 文章页：分享、打印与元信息布局
 
-Liquid Stack 还保留了原版 Stack 没有附带的管理工具：
+原版 Stack 没有本项目这套分享工具栏。Liquid Stack 新增 `article/components/share.html`，提供：
 
-- `/admin/` 使用 Sveltia CMS。生成配置来自 `layouts/admin/section.cmsconfig.yml` 和 `assets/admin/cms-config-base.yml`，覆盖双语文章、启动台条目和照片墙数据。
-- `layouts/_partials/comments/provider/waline.html` 为 Waline 评论区补充了与主题一致的样式、配置提示与互动统计；仓库中仅保留示例服务地址。
-- 友链页是数据驱动的链接中心，包含回链规则与可配置的申请、联系入口。
-- 自定义站点地图、多语言路由元数据、世界时钟与分类小组件、页脚信息和文章详情组件共同组成了站点工具层。
+- 打印与复制链接；
+- 支持浏览器原生分享；
+- 中文页的微博、QQ、X 分享；
+- 英文页的 X、Reddit、LinkedIn、WhatsApp 与邮件分享；
+- 打印时显示作者和文章来源。
 
-## 要把它改成自己的站点，应从哪里开始
+`article.html`、`details.html`、`single.html` 和 `list.html` 的覆盖用于接入分享区、整理双语与标签元信息，并让动态页脚在所有页面正确更新。
 
-先在 `hugo.yaml` 修改站点名称、语言、菜单、社交链接与服务地址；再替换 `data/launchpad/`、`data/photo-wall/`、`data/friend-links/` 中的示例数据，编辑关于页面，并在 `content/post/` 下新增文章。不要把站点定制直接写进 `themes/hugo-theme-stack/`，应沿用现有的 Liquid Stack 覆盖文件。
+## 启动台：原版没有的项目展示系统
 
-升级 Stack 时，请对照 vendored 主题与根目录覆盖文件，并逐页检查上面列出的功能。这正是同时保留上游主题与这些扩展所需要的维护边界。
+`layouts/page/apps.html` 是 Liquid Stack 全新页面。每个 `data/launchpad/*.yaml` 条目可以配置中英文名称、应用图标、预览图、相关文章与仓库地址。点击图标先打开类似桌面应用的预览层，再由按钮进入文章。
+
+项目数据和页面模板分离，所以使用者只需替换 YAML 与 `static/img/launchpad/` 中的素材，不需要修改页面代码。
+
+## 照片墙：不只是 Stack 的文章图片
+
+`layouts/page/pictures.html` 与 `data/photo-wall/` 组成独立照片墙。`assets/ts/custom.ts` 会读取真实图片比例，支持横图与竖图、拖动排列、点击聚焦、关闭动画，并按照稳定 id 将排列保存在浏览器本地。
+
+这与原版 Stack 在文章卡片中显示封面图不同：照片墙是一个独立、可交互、数据驱动的展示页面。
+
+## 仪表盘：从 Hugo 内容生成站点统计
+
+`layouts/page/dashboard.html` 是另一项全新功能。它在构建时读取 Hugo 内容，在浏览器中绘制：
+
+- 已发布文章数、总字数和运行天数；
+- 分类分布与热门标签；
+- 按星期和小时统计的发布习惯；
+- 年度文章贡献热力图；
+- Hugo、Stack、部署平台、评论和 CMS 状态。
+
+这些内容来自仓库本身，不依赖外部分析服务。若配置 Waline，页脚和评论区还可以显示阅读量与评论数。
+
+## Waline：保留 Stack provider，改造交互层
+
+Stack v4 原本已经支持 Waline。Liquid Stack 没有把它冒充为全新评论系统，而是覆盖原 provider，增加：
+
+- 中英文评论提示与互动统计；
+- 与主题深色模式一致的完整样式；
+- 自定义反应文案和图标；
+- 主服务不可用时的备用服务探测；
+- 评论列表中 RSS 和管理操作的位置调整；
+- 页脚全站浏览量显示。
+
+开源模板只保留示例地址，使用者需要配置自己的 Waline 后端。
+
+## 友链：从紧凑链接列表扩展为申请流程
+
+原版 `article/components/links.html` 只显示紧凑链接列表。Liquid Stack 将它扩展为：
+
+- 个人平台链接区；
+- 由 `data/friend-links/` 生成的友链卡片；
+- 友链规则入口；
+- 申请与联系按钮；
+- 可选的嵌入式申请表单。
+
+因此友链页不再只是静态链接集合，而是一套可以直接替换数据和申请地址的公开页面。
+
+## 双语、SEO、站点地图与 404
+
+新增的 `head/language-routing.html` 会保存语言偏好，并在中英文对应页面之间选择正确目标。Head 与 Open Graph 覆盖还补充了语言路由、favicon 和社交元数据处理。
+
+Liquid Stack 同时新增：
+
+- 面向读者的中英文 HTML 网站地图；
+- XML sitemap index 与包含全部语言页面的 flat sitemap；
+- 能从错误路径提取关键词并直接搜索的 404 页面；
+- 世界时钟小组件；
+- 更完整的分类、归档、标签云和目录样式。
+
+## 图标系统与视觉层
+
+原版 Stack 的图标 helper 只从本地 `assets/icons/` 读取 SVG。Liquid Stack 的 helper 在保留本地图标回退的同时，统一映射 Simple Icons、Lucide 与 Phosphor 图标，供社交品牌、管理工具和通用界面使用。
+
+视觉与交互主要集中在 `assets/scss/custom.scss` 和 `assets/ts/custom.ts`。前端脚本分别初始化语言体验、文章分享、首页动画、平滑导航、启动台、照片墙、世界时钟、仪表盘、管理菜单和移动端手势，并为减少动态效果的系统偏好提供降级。
+
+## CMS 与公开模板工作流
+
+原版 Stack 不包含内容管理后台。Liquid Stack 的 `/admin/` 加载 Sveltia CMS，配置由 `layouts/admin/section.cmsconfig.yml` 与 `assets/admin/cms-config-base.yml` 生成，覆盖双语文章、分类、启动台、照片墙等内容类型。
+
+仓库还附带 GitHub Pages Action。使用者通过 GitHub 的 **Use this template** 创建自己的仓库后，修改 `hugo.yaml` 中的站点名称与地址，即可用同一工作流部署。
+
+## 35 个模板差异文件
+
+相对官方 Stack v4.0.3，Liquid Stack 覆盖了以下 23 个同名模板：
+
+`404.html`、`article/article.html`、`article/components/details.html`、`article/components/links.html`、`comments/provider/giscus.html`、`comments/provider/waline.html`、`cookies/analytics.html`、`footer/footer.html`、`head/custom.html`、`head/head.html`、`head/opengraph/provider/base.html`、`head/opengraph/provider/twitter.html`、`helper/icon.html`、`sidebar/left.html`、`widget/archives.html`、`widget/categories.html`、`widget/tag-cloud.html`、`widget/toc.html`、`archives.html`、`home.html`、`list.html`、`page/search.html`、`single.html`。
+
+以下 12 个模板则是 Liquid Stack 新增、官方 Stack 中不存在的文件：
+
+`article/components/share.html`、`head/language-routing.html`、`sidebar/management-menu.html`、`widget/world-clock.html`、`admin/section.cmsconfig.yml`、`index.sitemapflat.xml`、`page/apps.html`、`page/dashboard.html`、`page/pictures.html`、`page/sitemap.html`、`sitemap.xml`、`sitemapindex.xml`。
+
+这份清单就是升级上游 Stack 时应重点复核的兼容边界。
