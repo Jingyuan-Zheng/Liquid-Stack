@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Liquid Stack is a polished bilingual Hugo site starter inspired by Liquid Glass and built on Stack v4." />
+    <meta name="theme-color" content="#f5f5fa" />
+    <link rel="icon" type="image/png" href="liquid-stack-logo.png" />
+    <title>Liquid Stack · Hugo 双语博客与个人网站主题</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --canvas: #f5f5fa;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-solid: #ffffff;
+        --surface-soft: #eef1f4;
+        --text: #20252d;
+        --muted: #6f747c;
+        --accent: #34495e;
+        --accent-strong: #2c3e50;
+        --line: rgba(52, 73, 94, 0.12);
+        --shadow: 0 20px 60px rgba(38, 49, 62, 0.1);
+        --radius: 28px;
+        --pill: 999px;
+        font-family: Inter, ui-rounded, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --canvas: #242426;
+        --surface: rgba(60, 60, 62, 0.82);
+        --surface-solid: #363638;
+        --surface-soft: #303033;
+        --text: #f4f5f6;
+        --muted: #b4b6bb;
+        --accent: #aec2d0;
+        --accent-strong: #dbe6ec;
+        --line: rgba(255, 255, 255, 0.1);
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--canvas);
+        color: var(--text);
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      :focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--accent) 52%, transparent);
+        outline-offset: 3px;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--canvas) 82%, transparent);
+        backdrop-filter: saturate(180%) blur(24px);
+      }
+
+      .header-inner {
+        width: min(1760px, calc(100% - 64px));
+        min-height: 76px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 20px;
+        font-weight: 760;
+        letter-spacing: -0.02em;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+        object-fit: contain;
+      }
+
+      .header-search {
+        min-width: 182px;
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 14px;
+        border: 1px solid transparent;
+        border-radius: 14px;
+        background: var(--surface-soft);
+        color: var(--muted);
+        cursor: pointer;
+      }
+
+      .header-search kbd {
+        margin-left: auto;
+        padding: 3px 7px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface-solid);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .header-nav {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-link,
+      .icon-button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 0;
+        border-radius: var(--pill);
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .nav-link {
+        padding: 0 15px;
+        font-weight: 650;
+      }
+
+      .icon-button {
+        width: 44px;
+        padding: 0;
+      }
+
+      .nav-link:hover,
+      .icon-button:hover {
+        background: var(--surface-soft);
+        transform: translateY(-1px);
+      }
+
+      .page-shell {
+        width: min(1500px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        min-height: 570px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+        align-items: center;
+        gap: 72px;
+        padding: 76px 0 58px;
+      }
+
+      .hero-kicker {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-size: clamp(44px, 5vw, 76px);
+        font-weight: 820;
+        letter-spacing: -0.055em;
+      }
+
+      .hero h1 {
+        max-width: 900px;
+        margin: 0;
+        font-size: clamp(48px, 5.3vw, 88px);
+        line-height: 1.05;
+        letter-spacing: -0.055em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.35vw, 22px);
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        min-height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 0 22px;
+        border: 1px solid transparent;
+        border-radius: var(--pill);
+        background: var(--surface-soft);
+        font-weight: 720;
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(38, 49, 62, 0.12);
+      }
+
+      .button-primary {
+        background: var(--accent);
+        color: var(--canvas);
+      }
+
+      :root:not([data-theme="dark"]) .button-primary {
+        color: #ffffff;
+      }
+
+      .hero-art {
+        display: grid;
+        place-items: center;
+      }
+
+      .hero-art-frame {
+        width: min(100%, 390px);
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 74px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(28px);
+      }
+
+      .hero-art img {
+        width: 74%;
+        height: 74%;
+        object-fit: contain;
+        filter: drop-shadow(0 22px 30px rgba(38, 49, 62, 0.16));
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+        padding-bottom: 96px;
+      }
+
+      .feature-card {
+        min-height: 262px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: 0 10px 32px rgba(38, 49, 62, 0.05);
+        backdrop-filter: blur(20px);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+
+      .feature-icon {
+        width: 58px;
+        height: 58px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 28px;
+        border-radius: 18px;
+        background: var(--surface-soft);
+        color: var(--accent);
+      }
+
+      .feature-card h2 {
+        margin: 0 0 12px;
+        font-size: 21px;
+        letter-spacing: -0.02em;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .detail-section {
+        margin-bottom: 96px;
+        padding: 54px;
+        border: 1px solid var(--line);
+        border-radius: 40px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(24px);
+      }
+
+      .section-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: 60px;
+        align-items: end;
+        margin-bottom: 48px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: clamp(38px, 4vw, 62px);
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.75;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .module-item {
+        min-height: 132px;
+        padding: 22px;
+        border-radius: 22px;
+        background: var(--surface-soft);
+      }
+
+      .module-item strong {
+        display: block;
+        margin-bottom: 9px;
+        font-size: 17px;
+      }
+
+      .module-item span {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .cta {
+        margin-bottom: 90px;
+        padding: 70px 40px;
+        border-radius: 44px;
+        background: var(--accent-strong);
+        color: var(--canvas);
+        text-align: center;
+      }
+
+      :root:not([data-theme="dark"]) .cta {
+        color: #ffffff;
+      }
+
+      .cta h2 {
+        max-width: 850px;
+        margin: 0 auto;
+        font-size: clamp(38px, 4.5vw, 68px);
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+      }
+
+      .cta p {
+        max-width: 700px;
+        margin: 22px auto 30px;
+        font-size: 18px;
+        line-height: 1.7;
+        opacity: 0.78;
+      }
+
+      .cta .button {
+        background: var(--canvas);
+        color: var(--accent-strong);
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-inner {
+        width: min(1500px, calc(100% - 64px));
+        min-height: 92px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 18px;
+      }
+
+      .search-dialog {
+        width: min(620px, calc(100% - 32px));
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--surface-solid);
+        color: var(--text);
+        box-shadow: 0 32px 100px rgba(20, 28, 36, 0.28);
+      }
+
+      .search-dialog::backdrop {
+        background: rgba(24, 30, 38, 0.38);
+        backdrop-filter: blur(16px);
+      }
+
+      .search-form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .search-form input {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--text);
+        font-size: 18px;
+      }
+
+      .search-results {
+        display: grid;
+        gap: 8px;
+        padding: 14px;
+      }
+
+      .search-result {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 16px;
+      }
+
+      .search-result:hover {
+        background: var(--surface-soft);
+      }
+
+      @media (max-width: 1100px) {
+        .hero {
+          grid-template-columns: 1fr 320px;
+          gap: 40px;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        .header-inner,
+        .page-shell,
+        .footer-inner {
+          width: min(100% - 32px, 1500px);
+        }
+
+        .header-search,
+        .nav-link[data-secondary] {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+          grid-template-columns: 1fr;
+          padding: 62px 0 52px;
+        }
+
+        .hero-art {
+          grid-row: 1;
+        }
+
+        .hero-art-frame {
+          width: 230px;
+          border-radius: 48px;
+        }
+
+        .hero h1 {
+          font-size: clamp(44px, 13vw, 68px);
+        }
+
+        .hero-kicker {
+          font-size: 42px;
+        }
+
+        .feature-grid,
+        .module-grid,
+        .section-heading {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-card {
+          min-height: auto;
+        }
+
+        .detail-section {
+          padding: 28px;
+          border-radius: 30px;
+        }
+
+        .section-heading {
+          gap: 20px;
+        }
+
+        .cta {
+          padding: 52px 24px;
+          border-radius: 32px;
+        }
+
+        .footer-inner {
+          padding: 24px 0;
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Liquid Stack home">
+          <img src="liquid-stack-logo.png" alt="" />
+          <span>Liquid Stack</span>
+        </a>
+        <button class="header-search" type="button" data-search-open>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <span data-en="Search" data-zh="搜索">搜索</span>
+          <kbd>⌘ K</kbd>
+        </button>
+        <nav class="header-nav" aria-label="Main navigation">
+          <a class="nav-link" data-secondary href="#features" data-en="Features" data-zh="功能">功能</a>
+          <a class="nav-link" data-secondary href="https://liquid-stack.pages.dev/zh/p/quick-start-deploying-liquid-stack/" data-guide-link data-en="Guide" data-zh="指南">指南</a>
+          <button class="icon-button" type="button" data-language-toggle aria-label="Switch language">
+            <i data-lucide="languages" aria-hidden="true"></i>
+          </button>
+          <button class="icon-button" type="button" data-theme-toggle aria-label="Switch colour scheme">
+            <i data-lucide="sun" aria-hidden="true" data-theme-icon></i>
+          </button>
+          <a class="icon-button" href="https://github.com/Jingyuan-Zheng/Liquid-Stack" aria-label="GitHub">
+            <i data-lucide="github" aria-hidden="true"></i>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top" class="page-shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="hero-kicker">Liquid Stack</p>
+          <h1 id="hero-title" data-en="A complete Hugo home for your ideas" data-zh="为博客与个人网站打造的完整主题">为博客与个人网站打造的完整主题</h1>
+          <p class="hero-copy" data-en="A polished bilingual starter built on Stack v4, inspired by Liquid Glass and ready with homepage widgets, projects, photos, analytics, comments, and a visual CMS." data-zh="基于 Stack v4 打造的完整双语站点模板，以 Liquid Glass 为设计灵感，集成主页小组件、项目启动台、照片墙、仪表盘、评论和可视化内容后台。">基于 Stack v4 打造的完整双语站点模板，以 Liquid Glass 为设计灵感，集成主页小组件、项目启动台、照片墙、仪表盘、评论和可视化内容后台。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/new?template_name=Liquid-Stack&amp;template_owner=Jingyuan-Zheng">
+              <i data-lucide="rocket" aria-hidden="true"></i>
+              <span data-en="Use this template" data-zh="开始使用">开始使用</span>
+            </a>
+            <a class="button" href="https://liquid-stack.pages.dev/zh/" data-demo-link>
+              <i data-lucide="monitor" aria-hidden="true"></i>
+              <span data-en="View demo" data-zh="查看演示">查看演示</span>
+            </a>
+            <a class="button" href="https://github.com/Jingyuan-Zheng/Liquid-Stack">
+              <i data-lucide="github" aria-hidden="true"></i>
+              <span data-en="View on GitHub" data-zh="在 GitHub 上查看">在 GitHub 上查看</span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-art-frame">
+            <img src="liquid-stack-logo.png" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="feature-grid" aria-label="Key features">
+        <article class="feature-card">
+          <div class="feature-icon"><i data-lucide="layers-3" aria-hidden="true"></i></div>
+          <h2 data-en="Liquid Glass inspired" data-zh="Liquid Glass 视觉">Liquid Glass 视觉</h2>
+          <p data-en="Translucent layers, large rounded cards, soft shadows, and a calm blue-grey palette across every page." data-zh="半透明层次、大圆角卡片、柔和阴影与蓝灰配色贯穿整套网站。">半透明层次、大圆角卡片、柔和阴影与蓝灰配色贯穿整套网站。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></div>
+          <h2 data-en="Homepage widgets" data-zh="主页小组件">主页小组件</h2>
+          <p data-en="Profile, shortcut cards, world clocks, archives, categories, tags, and live previews in one homepage." data-zh="个人信息、快捷卡片、世界时钟、归档、分类、标签和内容预览集中呈现。">个人信息、快捷卡片、世界时钟、归档、分类、标签和内容预览集中呈现。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><i data-lucide="languages" aria-hidden="true"></i></div>
+          <h2 data-en="Bilingual by design" data-zh="完整双语结构">完整双语结构</h2>
+          <p data-en="English and Simplified Chinese share one layout with automatic language detection and matching translations." data-zh="中英文共享同一套页面结构，并支持语言识别、偏好记忆与同页译文切换。">中英文共享同一套页面结构，并支持语言识别、偏好记忆与同页译文切换。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><i data-lucide="panel-top" aria-hidden="true"></i></div>
+          <h2 data-en="Complete site toolkit" data-zh="完整网站工具">完整网站工具</h2>
+          <p data-en="Launchpad, photo wall, About page, dashboard, comments, friend links, sitemaps, and a visual CMS." data-zh="启动台、照片墙、关于页面、仪表盘、评论、友链、站点地图与可视化 CMS 一应俱全。">启动台、照片墙、关于页面、仪表盘、评论、友链、站点地图与可视化 CMS 一应俱全。</p>
+        </article>
+      </section>
+
+      <section class="detail-section" aria-labelledby="included-title">
+        <div class="section-heading">
+          <h2 id="included-title" data-en="Everything stays together" data-zh="一套完整框架">一套完整框架</h2>
+          <p data-en="Liquid Stack keeps the original Stack blogging foundation and adds the surrounding pages and tools needed for a complete personal site. Replace the sample data and visual assets without rebuilding the structure." data-zh="Liquid Stack 保留 Stack 原有博客基础，并补齐个人网站需要的页面与工具。替换示例数据和视觉素材即可使用，无需重新搭建结构。">Liquid Stack 保留 Stack 原有博客基础，并补齐个人网站需要的页面与工具。替换示例数据和视觉素材即可使用，无需重新搭建结构。</p>
+        </div>
+        <div class="module-grid">
+          <div class="module-item"><strong data-en="Writing and reading" data-zh="写作与阅读">写作与阅读</strong><span data-en="Posts, taxonomies, search, table of contents, sharing, print, and localized dates." data-zh="文章、分类、搜索、目录、分享、打印和本地化日期。">文章、分类、搜索、目录、分享、打印和本地化日期。</span></div>
+          <div class="module-item"><strong data-en="Projects and photos" data-zh="项目与照片">项目与照片</strong><span data-en="An application-style launchpad and an interactive photo wall with replaceable data." data-zh="应用式项目启动台与支持替换数据的交互照片墙。">应用式项目启动台与支持替换数据的交互照片墙。</span></div>
+          <div class="module-item"><strong data-en="About and profile" data-zh="关于与个人主页">关于与个人主页</strong><span data-en="Animated profile sections that can tell a site story or present a résumé." data-zh="带动画的个人页面，可用于网站故事、个人介绍或简历。">带动画的个人页面，可用于网站故事、个人介绍或简历。</span></div>
+          <div class="module-item"><strong data-en="Site dashboard" data-zh="网站仪表盘">网站仪表盘</strong><span data-en="Content counts, publishing heatmap, category distribution, and system status." data-zh="内容统计、发布热力图、分类分布和系统状态。">内容统计、发布热力图、分类分布和系统状态。</span></div>
+          <div class="module-item"><strong data-en="Content management" data-zh="内容管理">内容管理</strong><span data-en="A styled Sveltia CMS for posts, categories, projects, photos, and site settings." data-zh="经过主题化的 Sveltia CMS，可管理文章、分类、项目、照片和网站设置。">经过主题化的 Sveltia CMS，可管理文章、分类、项目、照片和网站设置。</span></div>
+          <div class="module-item"><strong data-en="Open-source starter" data-zh="开源起步模板">开源起步模板</strong><span data-en="Generic bilingual examples, replaceable assets, and no personal service credentials." data-zh="包含通用双语示例与可替换素材，不包含个人服务凭据。">包含通用双语示例与可替换素材，不包含个人服务凭据。</span></div>
+        </div>
+      </section>
+
+      <section class="cta" aria-labelledby="cta-title">
+        <h2 id="cta-title" data-en="Start with a complete site" data-zh="从完整的网站框架开始">从完整的网站框架开始</h2>
+        <p data-en="Create a repository from the template, replace the sample identity and content, then publish it on the static host you prefer." data-zh="使用模板创建仓库，替换示例身份与内容，再发布到你选择的静态托管平台。">使用模板创建仓库，替换示例身份与内容，再发布到你选择的静态托管平台。</p>
+        <a class="button" href="https://github.com/new?template_name=Liquid-Stack&amp;template_owner=Jingyuan-Zheng">
+          <i data-lucide="git-fork" aria-hidden="true"></i>
+          <span data-en="Create from template" data-zh="使用模板创建">使用模板创建</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>Liquid Stack · Created by Jingyuan Zheng</span>
+        <div class="footer-links">
+          <a href="https://liquid-stack.pages.dev/" data-en="Demo" data-zh="演示">演示</a>
+          <a href="https://github.com/Jingyuan-Zheng/Liquid-Stack">GitHub</a>
+          <a href="https://github.com/Jingyuan-Zheng/Liquid-Stack/blob/main/LICENSE" data-en="License" data-zh="许可证">许可证</a>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="search-dialog" data-search-dialog>
+      <form class="search-form" method="dialog">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input type="search" autocomplete="off" data-search-input placeholder="搜索项目内容" aria-label="Search project content" />
+        <button class="icon-button" value="close" aria-label="Close"><i data-lucide="x" aria-hidden="true"></i></button>
+      </form>
+      <div class="search-results" data-search-results></div>
+    </dialog>
+
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const languageButton = document.querySelector("[data-language-toggle]");
+        const themeButton = document.querySelector("[data-theme-toggle]");
+        const dialog = document.querySelector("[data-search-dialog]");
+        const input = document.querySelector("[data-search-input]");
+        const results = document.querySelector("[data-search-results]");
+        const searchButton = document.querySelector("[data-search-open]");
+
+        const pages = [
+          { en: "Live demo", zh: "在线演示", hrefEn: "https://liquid-stack.pages.dev/", hrefZh: "https://liquid-stack.pages.dev/zh/", icon: "monitor" },
+          { en: "Getting started", zh: "快速开始", hrefEn: "https://liquid-stack.pages.dev/p/quick-start-deploying-liquid-stack/", hrefZh: "https://liquid-stack.pages.dev/zh/p/quick-start-deploying-liquid-stack/", icon: "rocket" },
+          { en: "Theme features", zh: "主题新增功能", hrefEn: "https://liquid-stack.pages.dev/p/welcome-to-liquid-stack/", hrefZh: "https://liquid-stack.pages.dev/zh/p/welcome-to-liquid-stack/", icon: "layers-3" },
+          { en: "Source repository", zh: "源码仓库", hrefEn: "https://github.com/Jingyuan-Zheng/Liquid-Stack", hrefZh: "https://github.com/Jingyuan-Zheng/Liquid-Stack", icon: "github" },
+        ];
+
+        let language = localStorage.getItem("liquid-stack-project-language") || (navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+        let theme = localStorage.getItem("liquid-stack-project-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+        const renderIcons = () => window.lucide && window.lucide.createIcons({ attrs: { width: 21, height: 21, "stroke-width": 1.8 } });
+
+        const applyLanguage = () => {
+          root.lang = language === "zh" ? "zh-Hans" : "en";
+          document.querySelectorAll("[data-en][data-zh]").forEach((element) => {
+            element.textContent = element.dataset[language];
+          });
+          document.querySelector("[data-demo-link]").href = language === "zh" ? "https://liquid-stack.pages.dev/zh/" : "https://liquid-stack.pages.dev/";
+          document.querySelector("[data-guide-link]").href = language === "zh" ? "https://liquid-stack.pages.dev/zh/p/quick-start-deploying-liquid-stack/" : "https://liquid-stack.pages.dev/p/quick-start-deploying-liquid-stack/";
+          input.placeholder = language === "zh" ? "搜索项目内容" : "Search project content";
+          document.title = language === "zh" ? "Liquid Stack · Hugo 双语博客与个人网站主题" : "Liquid Stack · A complete bilingual Hugo site starter";
+          localStorage.setItem("liquid-stack-project-language", language);
+          renderResults(input.value);
+        };
+
+        const applyTheme = () => {
+          root.dataset.theme = theme;
+          const icon = document.querySelector("[data-theme-icon]");
+          icon.dataset.lucide = theme === "dark" ? "moon" : "sun";
+          localStorage.setItem("liquid-stack-project-theme", theme);
+          renderIcons();
+        };
+
+        const renderResults = (query = "") => {
+          const normalized = query.trim().toLowerCase();
+          const visible = pages.filter((page) => !normalized || page.en.toLowerCase().includes(normalized) || page.zh.includes(query.trim()));
+          results.innerHTML = visible.map((page) => {
+            const label = page[language];
+            const href = language === "zh" ? page.hrefZh : page.hrefEn;
+            return `<a class="search-result" href="${href}"><i data-lucide="${page.icon}" aria-hidden="true"></i><span>${label}</span></a>`;
+          }).join("");
+          renderIcons();
+        };
+
+        const openSearch = () => {
+          if (!dialog.open) dialog.showModal();
+          renderResults("");
+          requestAnimationFrame(() => input.focus());
+        };
+
+        languageButton.addEventListener("click", () => {
+          language = language === "zh" ? "en" : "zh";
+          applyLanguage();
+        });
+
+        themeButton.addEventListener("click", () => {
+          theme = theme === "dark" ? "light" : "dark";
+          applyTheme();
+        });
+
+        searchButton.addEventListener("click", openSearch);
+        input.addEventListener("input", () => renderResults(input.value));
+        document.addEventListener("keydown", (event) => {
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+            event.preventDefault();
+            openSearch();
+          }
+          if (event.key === "/" && !dialog.open && !(event.target instanceof HTMLInputElement)) {
+            event.preventDefault();
+            openSearch();
+          }
+        });
+
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+
+        applyLanguage();
+        applyTheme();
+        renderIcons();
+      })();
+    </script>
+  </body>
+</html>

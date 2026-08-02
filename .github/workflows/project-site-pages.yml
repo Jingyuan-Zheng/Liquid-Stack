@@ -1,0 +1,36 @@
+name: Deploy project website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - project-site/**
+      - static/admin/liquid-stack-logo.png
+      - .github/workflows/project-site-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: project-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare project website
+        run: cp static/admin/liquid-stack-logo.png project-site/liquid-stack-logo.png
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: project-site
+      - id: deployment
+        uses: actions/deploy-pages@v4

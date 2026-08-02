@@ -4,6 +4,41 @@
 
 Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blog foundation and adds a profile homepage, launchpad, interactive photo wall, content dashboard, Sveltia CMS, enhanced Waline integration, friend-link workflow, bilingual sitemaps, and ready-to-edit sample content.
 
+## What Liquid Stack adds
+
+### Visual system
+
+- A web interpretation of Apple's Liquid Glass language with translucent overlays, background blur, soft surfaces, and light/dark adaptation
+- A consistent rounded-corner hierarchy across article cards, homepage widgets, panels, controls, and badges
+- Lucide line icons for interface actions and navigation
+- A neutral grey-lavender palette with restrained functional accents
+
+### Homepage widgets
+
+- A profile hero with replaceable identity, introduction, and social links
+- Shortcut cards for the launchpad, About page, dashboard, and photo wall
+- Two analogue world clocks for the visitor's local time and the configured site time
+- Stack's search, archives, categories, tags, and article feed in the same visual system
+
+### Reading and bilingual publishing
+
+- Browser-localized article dates, print and sharing actions, related posts, a table of contents, and full-text search
+- Automatic English and Simplified Chinese selection with saved language preference and matching-translation navigation
+- Reader-facing bilingual sitemaps, multilingual XML sitemaps, and a search-assisted 404 page
+
+### Projects, photos, and About
+
+- A data-driven project launchpad with icons, previews, article links, and repository links
+- A draggable photo wall for portrait and landscape images with a focused viewer and browser-saved positions
+- An animated About layout with timeline sections and a floating menu that can present a profile, site story, portfolio, or résumé
+
+### Management and interaction
+
+- A configurable management menu for the CMS, comments, deployment, analytics, and other site tools
+- Sveltia CMS at `/admin/` for browser-based editing of bilingual posts and site data
+- A Hugo-powered dashboard with content totals, category and tag summaries, publishing patterns, and an annual heatmap
+- Theme-matched Waline comments and a complete friend-link application workflow
+
 ## Create your site from the template
 
 1. Select **Use this template** on GitHub, then create a public repository.
@@ -35,7 +70,7 @@ The public demo runs on Cloudflare Pages. Build the site with Hugo Extended 0.16
 - `data/friend-links/` — friend-link cards
 - `assets/admin/` and `layouts/admin/` — generated Sveltia CMS configuration
 
-The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. See the [theme update overview](https://liquid-stack.pages.dev/p/liquid-stack-customizations/).
+The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. Read [Welcome to Liquid Stack: New Theme Features](https://liquid-stack.pages.dev/p/welcome-to-liquid-stack/) for the complete guide.
 
 Sample text and images are generic placeholders. Replace them before launching your site.
 
