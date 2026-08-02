@@ -1,4 +1,4 @@
-baseURL: "https://example.github.io/"
+baseURL: "https://jingyuan-zheng.github.io/Liquid-Stack/"
 title: Liquid Stack
 theme: hugo-theme-stack
 copyright: "My Blog"
@@ -69,7 +69,7 @@ params:
     content: { enabled: true }
 menu:
   social:
-    - { identifier: github, name: GitHub, url: https://github.com/your-account/liquid-stack, weight: 1, params: { icon: brand-github, newTab: true } }
+    - { identifier: github, name: GitHub, url: https://github.com/Jingyuan-Zheng/Liquid-Stack, weight: 1, params: { icon: brand-github, newTab: true } }
     - { identifier: rss, name: RSS, url: /index.xml, weight: 2, params: { icon: rss, newTab: true } }
 related:
   includeNewer: true

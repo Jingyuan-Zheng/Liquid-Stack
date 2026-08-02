@@ -19,20 +19,20 @@
 - id: github
   title: Source repository
   titleZh: 源码仓库
-  url: https://github.com/your-account/liquid-stack
+  url: https://github.com/Jingyuan-Zheng/Liquid-Stack
   icon: brand-github
   external: true
   groupStart: true
 - id: github-pages
   title: GitHub Pages settings
   titleZh: GitHub Pages 设置
-  url: https://github.com/your-account/liquid-stack/settings/pages
+  url: https://github.com/Jingyuan-Zheng/Liquid-Stack/settings/pages
   icon: code
   external: true
 - id: source-editing
   title: Source repository
   titleZh: 源码仓库
-  url: https://github.com/your-account/liquid-stack
+  url: https://github.com/Jingyuan-Zheng/Liquid-Stack
   icon: code
   external: true
 - id: search-console

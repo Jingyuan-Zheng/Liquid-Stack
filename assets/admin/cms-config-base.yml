@@ -4,11 +4,11 @@
 # your choice and replace the placeholders below before publishing.
 backend:
   name: github
-  repo: your-account/liquid-stack
+  repo: Jingyuan-Zheng/Liquid-Stack
   branch: main
 
-site_url: https://example.github.io/liquid-stack/
-display_url: https://example.github.io/liquid-stack/
+site_url: https://jingyuan-zheng.github.io/Liquid-Stack/
+display_url: https://jingyuan-zheng.github.io/Liquid-Stack/
 app_title: Liquid Stack CMS
 logo:
   src: /admin/liquid-stack-logo.png
