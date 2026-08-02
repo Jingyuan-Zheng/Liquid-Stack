@@ -8,7 +8,27 @@
     {{ $pictures := slice }}{{ with index hugo.Data "photo-wall" }}{{ range . }}{{ $pictures = $pictures | append . }}{{ end }}{{ end }}{{ $pictures = sort $pictures "order" }}
     <section class="home-profile" aria-labelledby="home-profile-title">
         {{ with .Site.Params.sidebar.avatar }}{{ $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) }}{{ with $avatar }}
-        <figure class="home-profile__avatar"><img src="{{ .Permalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $.Site.Title }}"><button class="home-profile__emoji home-profile__management-toggle" type="button" aria-expanded="false" aria-controls="home-profile-management-menu" aria-label="{{ cond $isChinese "打开网站管理选单" "Open site management menu" }}" data-sidebar-management-toggle>{{ $.Site.Params.sidebar.emoji }}</button>{{ partial "sidebar/management-menu.html" (dict "Context" $ "MenuID" "home-profile-management-menu") }}</figure>
+        {{ $announcementTitle := cond $isChinese "网站公告" "Website announcement" }}
+        {{ $announcementOpenLabel := cond $isChinese "打开网站公告" "Open website announcement" }}
+        {{ $announcementUnreadLabel := cond $isChinese "打开网站公告，1 条未读" "Open website announcement, 1 unread" }}
+        {{ $announcementCloseLabel := cond $isChinese "关闭网站公告" "Close website announcement" }}
+        <figure class="home-profile__avatar" data-home-announcement data-announcement-id="liquid-stack-welcome-2026-08">
+            <button class="home-profile__announcement-toggle" type="button" aria-expanded="false" aria-controls="home-profile-announcement" aria-label="{{ $announcementUnreadLabel }}" data-home-announcement-toggle data-announcement-open-label="{{ $announcementOpenLabel }}" data-announcement-close-label="{{ $announcementCloseLabel }}">
+                <img src="{{ .Permalink }}" width="{{ .Width }}" height="{{ .Height }}" loading="eager" alt="{{ $.Site.Title }}">
+                <span class="home-profile__announcement-badge" data-home-announcement-badge aria-hidden="true">1</span>
+            </button>
+            <button class="home-profile__emoji home-profile__management-toggle" type="button" aria-expanded="false" aria-controls="home-profile-management-menu" aria-label="{{ cond $isChinese "打开网站管理选单" "Open site management menu" }}" data-sidebar-management-toggle>{{ $.Site.Params.sidebar.emoji }}</button>
+            {{ partial "sidebar/management-menu.html" (dict "Context" $ "MenuID" "home-profile-management-menu") }}
+            <div class="home-profile__announcement-bubble" id="home-profile-announcement" data-home-announcement-bubble role="note" aria-live="polite" hidden>
+                <strong>{{ $announcementTitle }}</strong>
+                {{ if $isChinese }}
+                    <p>Liquid Stack 已作为开源 Hugo 模板发布。你可以保留需要的模块，再替换成自己的内容与服务。</p>
+                {{ else }}
+                    <p>Liquid Stack is now available as an open-source Hugo starter. Keep the modules you need, then replace the content and services with your own.</p>
+                {{ end }}
+                <time class="home-profile__announcement-date" datetime="2026-08-02">{{ cond $isChinese "2026年8月2日" "2 Aug 2026" }}</time>
+            </div>
+        </figure>
         {{ end }}{{ end }}
         <div class="home-profile__copy"><p class="home-profile__greeting">{{ cond $isChinese "欢迎来到" "Welcome to" }}</p><h1 id="home-profile-title">{{ .Site.Title }}</h1><p class="home-profile__subtitle">{{ .Site.Params.sidebar.subtitle }}</p></div>
         {{ with .Site.Menus.social }}<ol class="home-profile__social" aria-label="Social links">{{ range . }}<li><a href="{{ .URL }}" target="_blank" rel="noopener" title="{{ .Name }}">{{ partial "helper/icon" .Params.icon }}</a></li>{{ end }}</ol>{{ end }}
