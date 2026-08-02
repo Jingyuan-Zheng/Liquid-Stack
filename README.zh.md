@@ -1,6 +1,6 @@
 # Liquid Stack
 
-[English](README.md) · [在线 Demo](https://liquid-stack.pages.dev/zh/) · [使用此模板](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
+[English](README.md) · [主题 Demo](https://liquid-stack.pages.dev/zh/) · [真实站点演示](https://jingyuan-zheng.github.io/) · [使用此模板](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
 
 Liquid Stack 是一套基于原版 [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3 的完整双语 Hugo 站点模板。它保留 Stack 的博客基础，并加入个人主页式首页、启动台、可交互照片墙、内容仪表盘、Sveltia CMS、Waline 扩展、友链申请流程、双语站点地图和可直接替换的示例内容。
 
