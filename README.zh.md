@@ -4,6 +4,21 @@
 
 Liquid Stack 是一套基于原版 [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3 的完整双语 Hugo 站点模板。它保留 Stack 的博客基础，并加入个人主页式首页、启动台、可交互照片墙、内容仪表盘、Sveltia CMS、Waline 扩展、友链申请流程、双语站点地图和可直接替换的示例内容。
 
+## 界面截图
+
+![Liquid Stack 主页](project-site/images/screenshots/home-light-en.png)
+
+| Liquid Glass 细节 | 启动台与照片墙 |
+| --- | --- |
+| ![Liquid Glass 控件](project-site/images/screenshots/liquid-glass-social.png) | ![项目启动台](project-site/images/screenshots/launchpad.png) |
+| ![Liquid Glass 导航](project-site/images/screenshots/liquid-glass-navigation.png) | ![可交互照片墙](project-site/images/screenshots/photo-wall.png) |
+
+| 网站仪表盘 | 可视化 CMS | 评论区 |
+| --- | --- | --- |
+| ![网站仪表盘](project-site/images/screenshots/dashboard-statistics.png) | ![Sveltia CMS](project-site/images/screenshots/cms.png) | ![Waline 评论布局](project-site/images/screenshots/comments.png) |
+
+完整的带说明截图请查看[项目介绍页](https://jingyuan-zheng.github.io/Liquid-Stack/)。
+
 ## Liquid Stack 新增内容
 
 ### 视觉系统

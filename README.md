@@ -4,6 +4,21 @@
 
 Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blog foundation and adds a profile homepage, launchpad, interactive photo wall, content dashboard, Sveltia CMS, enhanced Waline integration, friend-link workflow, bilingual sitemaps, and ready-to-edit sample content.
 
+## Screenshots
+
+![Liquid Stack homepage](project-site/images/screenshots/home-light-en.png)
+
+| Liquid Glass details | Launchpad and photo wall |
+| --- | --- |
+| ![Liquid Glass controls](project-site/images/screenshots/liquid-glass-social.png) | ![Project launchpad](project-site/images/screenshots/launchpad.png) |
+| ![Liquid Glass navigation](project-site/images/screenshots/liquid-glass-navigation.png) | ![Interactive photo wall](project-site/images/screenshots/photo-wall.png) |
+
+| Dashboard | Visual CMS | Comments |
+| --- | --- | --- |
+| ![Site dashboard](project-site/images/screenshots/dashboard-statistics.png) | ![Sveltia CMS](project-site/images/screenshots/cms.png) | ![Waline comment layout](project-site/images/screenshots/comments.png) |
+
+See the complete annotated gallery on the [project website](https://jingyuan-zheng.github.io/Liquid-Stack/).
+
 ## What Liquid Stack adds
 
 ### Visual system

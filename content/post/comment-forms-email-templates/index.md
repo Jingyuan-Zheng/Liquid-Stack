@@ -56,12 +56,18 @@ The links-page buttons and embed URL live under `content/page/links/`. The manag
 
 ## Bilingual email templates
 
-Four sanitized responsive HTML emails are available under [`examples/email-templates`](https://github.com/Jingyuan-Zheng/Liquid-Stack/tree/main/examples/email-templates).
+Five sanitized responsive HTML email files and a Waline notification subject file are available under [`examples/email-templates`](https://github.com/Jingyuan-Zheng/Liquid-Stack/tree/main/examples/email-templates).
 
 - Reader reply in English
 - Reader reply in Simplified Chinese
 - Backlink approval in English
 - Backlink approval in Simplified Chinese
+
+### Waline reply notification
+
+`waline-comment-reply-bilingual.html` is a ready-to-adapt bilingual reply-notification body for Waline. `waline-comment-reply-subject.txt` provides the matching subject line. The template detects `/zh/` in the post URL to select Simplified Chinese; other pages use English.
+
+It preserves the Waline variables for the original commenter, reply author, reply body, and post URL. Replace `[SITE NAME]` and `[站点名称]` with your own public site name, then paste the body and subject into your Waline mail configuration. Do not replace the `self`, `parent`, or `site` variables.
 
 Personal names, private branding, and personal-site URLs have been removed and replaced with bracketed placeholders. Before sending, replace the site name, brand, URLs, recipient name, reply body, and signature.
 

@@ -371,6 +371,84 @@
         line-height: 1.6;
       }
 
+      .showcase-section {
+        margin-bottom: 96px;
+      }
+
+      .showcase-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 32px;
+        margin-bottom: 30px;
+      }
+
+      .showcase-heading h2 {
+        margin: 0;
+        font-size: clamp(38px, 4vw, 62px);
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+      }
+
+      .showcase-heading p {
+        max-width: 580px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .showcase-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .showcase-card {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--surface);
+        box-shadow: 0 12px 34px rgba(38, 49, 62, 0.07);
+      }
+
+      .showcase-card.featured {
+        grid-column: 1 / -1;
+      }
+
+      .showcase-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: var(--surface-soft);
+      }
+
+      .showcase-card:not(.featured) img {
+        aspect-ratio: 1.62;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .showcase-caption {
+        padding: 17px 20px 19px;
+      }
+
+      .showcase-caption strong,
+      .showcase-caption span {
+        display: block;
+      }
+
+      .showcase-caption strong {
+        margin-bottom: 4px;
+        font-size: 17px;
+      }
+
+      .showcase-caption span {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
       .cta {
         margin-bottom: 90px;
         padding: 70px 40px;
@@ -525,8 +603,18 @@
 
         .feature-grid,
         .module-grid,
-        .section-heading {
+        .section-heading,
+        .showcase-grid {
           grid-template-columns: 1fr;
+        }
+
+        .showcase-heading {
+          display: grid;
+          gap: 16px;
+        }
+
+        .showcase-card.featured {
+          grid-column: auto;
         }
 
         .feature-card {
@@ -659,6 +747,71 @@
           <div class="module-item"><strong data-en="Site dashboard" data-zh="网站仪表盘">网站仪表盘</strong><span data-en="Content counts, publishing heatmap, category distribution, and system status." data-zh="内容统计、发布热力图、分类分布和系统状态。">内容统计、发布热力图、分类分布和系统状态。</span></div>
           <div class="module-item"><strong data-en="Content management" data-zh="内容管理">内容管理</strong><span data-en="A styled Sveltia CMS for posts, categories, projects, photos, and site settings." data-zh="经过主题化的 Sveltia CMS，可管理文章、分类、项目、照片和网站设置。">经过主题化的 Sveltia CMS，可管理文章、分类、项目、照片和网站设置。</span></div>
           <div class="module-item"><strong data-en="Open-source starter" data-zh="开源起步模板">开源起步模板</strong><span data-en="Generic bilingual examples, replaceable assets, and no personal service credentials." data-zh="包含通用双语示例与可替换素材，不包含个人服务凭据。">包含通用双语示例与可替换素材，不包含个人服务凭据。</span></div>
+        </div>
+      </section>
+
+      <section class="showcase-section" aria-labelledby="showcase-title">
+        <div class="showcase-heading">
+          <h2 id="showcase-title" data-en="See the complete system" data-zh="看看完整系统">看看完整系统</h2>
+          <p data-en="From the homepage and its Liquid Glass details to publishing, projects, analytics, and content management, every screenshot is from the included demo." data-zh="从首页与 Liquid Glass 细节，到写作、项目、统计和内容管理，以下均为模板内置 Demo 的实际界面。">从首页与 Liquid Glass 细节，到写作、项目、统计和内容管理，以下均为模板内置 Demo 的实际界面。</p>
+        </div>
+        <div class="showcase-grid">
+          <figure class="showcase-card featured">
+            <img src="images/screenshots/home-light-en.png" alt="Liquid Stack English homepage" />
+            <figcaption class="showcase-caption"><strong data-en="Homepage widgets" data-zh="主页小组件">主页小组件</strong><span data-en="Profile, world clocks, shortcuts, archives, categories, and tags in one responsive homepage." data-zh="个人信息、世界时钟、快捷卡片、归档、分类和标签集中在同一响应式首页。">个人信息、世界时钟、快捷卡片、归档、分类和标签集中在同一响应式首页。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/liquid-glass-social.png" alt="Liquid Glass social icons" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Liquid Glass details" data-zh="Liquid Glass 细节">Liquid Glass 细节</strong><span data-en="Translucent surfaces, blur, soft highlights, and layered controls." data-zh="半透明表面、背景模糊、柔和高光与分层控件。">半透明表面、背景模糊、柔和高光与分层控件。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/liquid-glass-navigation.png" alt="Liquid Glass navigation details" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Rounded navigation" data-zh="圆角导航">圆角导航</strong><span data-en="The same visual hierarchy extends through navigation, search, and page controls." data-zh="同一套视觉层级延伸至导航、搜索与页面控件。">同一套视觉层级延伸至导航、搜索与页面控件。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/launchpad.png" alt="Liquid Stack launchpad" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Project launchpad" data-zh="项目启动台">项目启动台</strong><span data-en="Data-driven project shortcuts with replaceable icons and destinations." data-zh="通过数据管理的项目快捷入口，可替换图标与目标链接。">通过数据管理的项目快捷入口，可替换图标与目标链接。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/photo-wall.png" alt="Liquid Stack photo wall" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Interactive photo wall" data-zh="可交互照片墙">可交互照片墙</strong><span data-en="Mixed-orientation photos in a browser-saved freeform layout." data-zh="横竖照片自由排列，并在浏览器中保存布局。">横竖照片自由排列，并在浏览器中保存布局。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/article-list.png" alt="Liquid Stack article list" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Bilingual publishing" data-zh="双语发布">双语发布</strong><span data-en="Matching English and Chinese posts, localized dates, and reading metadata." data-zh="中英文对应文章、本地化日期与阅读信息。">中英文对应文章、本地化日期与阅读信息。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/theme-guide-en.png" alt="Liquid Stack English theme guide" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Long-form reading" data-zh="长文阅读">长文阅读</strong><span data-en="An article layout with sharing actions and an automatically generated table of contents." data-zh="文章页包含分享操作与自动生成的目录。">文章页包含分享操作与自动生成的目录。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/theme-guide-zh.png" alt="Liquid Stack Chinese theme guide" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Matched translations" data-zh="对应译文">对应译文</strong><span data-en="English and Simplified Chinese preserve the same information architecture." data-zh="英文与简体中文保持一致的信息架构。">英文与简体中文保持一致的信息架构。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/home-dark-en.png" alt="Liquid Stack English dark homepage" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Dark mode" data-zh="深色模式">深色模式</strong><span data-en="The full homepage adapts its layers and contrast for dark environments." data-zh="完整首页会为深色环境调整层次与对比度。">完整首页会为深色环境调整层次与对比度。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/home-dark-zh.png" alt="Liquid Stack Chinese dark homepage" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Chinese dark mode" data-zh="中文深色模式">中文深色模式</strong><span data-en="The same dark-mode experience is available in Simplified Chinese." data-zh="简体中文同样提供完整的深色模式体验。">简体中文同样提供完整的深色模式体验。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/dashboard-overview.png" alt="Liquid Stack site dashboard overview" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Site dashboard" data-zh="网站仪表盘">网站仪表盘</strong><span data-en="A visual overview of framework, deployment, services, and site configuration." data-zh="可视化汇总站点框架、部署、服务与配置。">可视化汇总站点框架、部署、服务与配置。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/dashboard-statistics.png" alt="Liquid Stack content statistics dashboard" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Content statistics" data-zh="内容统计">内容统计</strong><span data-en="Posts, words, activity, categories, and tags generated from Hugo content." data-zh="根据 Hugo 内容生成文章、字数、发布习惯、分类与标签统计。">根据 Hugo 内容生成文章、字数、发布习惯、分类与标签统计。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/cms.png" alt="Liquid Stack Sveltia CMS" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Visual CMS" data-zh="可视化 CMS">可视化 CMS</strong><span data-en="A themed Sveltia CMS for bilingual posts, gallery items, launchpad entries, and site data." data-zh="经过主题化的 Sveltia CMS，可管理双语文章、照片墙、启动台和站点数据。">经过主题化的 Sveltia CMS，可管理双语文章、照片墙、启动台和站点数据。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/comments.png" alt="Liquid Stack comment interface" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Comment interface" data-zh="评论界面">评论界面</strong><span data-en="A theme-matched Waline layout with a static preview in the public demo." data-zh="与主题统一的 Waline 布局，公开 Demo 使用静态预览。">与主题统一的 Waline 布局，公开 Demo 使用静态预览。</span></figcaption>
+          </figure>
         </div>
       </section>
 

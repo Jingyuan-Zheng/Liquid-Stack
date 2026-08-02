@@ -56,12 +56,18 @@ Demo 的链接页面已经接入一份 Microsoft Forms 友链申请示例。
 
 ## 双语邮件模板
 
-仓库在 [`examples/email-templates`](https://github.com/Jingyuan-Zheng/Liquid-Stack/tree/main/examples/email-templates) 中提供四份已去敏的响应式 HTML 邮件。
+仓库在 [`examples/email-templates`](https://github.com/Jingyuan-Zheng/Liquid-Stack/tree/main/examples/email-templates) 中提供五份已去敏的响应式 HTML 邮件和一份 Waline 通知主题文件。
 
 - 中文读者来信回复
 - 英文读者来信回复
 - 中文友链申请通过通知
 - 英文友链申请通过通知
+
+### Waline 评论回复通知
+
+`waline-comment-reply-bilingual.html` 是一份可直接改用的 Waline 中英双语回复通知正文，`waline-comment-reply-subject.txt` 提供对应主题。模板会根据文章 URL 是否包含 `/zh/` 选择简体中文，其余页面显示英文。
+
+模板保留评论者、回复者、回复内容和文章链接所需的 Waline 变量。将 `[SITE NAME]` 与 `[站点名称]` 替换为自己的公开站点名称后，再把正文和主题粘贴到 Waline 邮件配置中。不要替换 `self`、`parent` 与 `site` 变量。
 
 模板已经移除真实姓名、个人网站和身份信息，统一改成方括号占位符。发送前需要替换网站名称、品牌、网址、收件人称呼、回复正文和署名。
 
