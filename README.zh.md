@@ -80,6 +80,10 @@ hugo server -D
 hugo --minify --cleanDestinationDir --ignoreCache
 ```
 
+## 部署
+
+公开 Demo 部署在 Cloudflare Pages，并已连接到本仓库：每次推送到 `main` 都会使用 Hugo Extended 0.161.0 自动构建。你自己的站点也可以在 Cloudflare Pages 连接仓库，将构建命令设为 `hugo --minify --cleanDestinationDir --ignoreCache`，输出目录设为 `public`。
+
 ## Demo 配套资源
 
 - [评论、友链申请与邮件模板](https://liquid-stack.pages.dev/zh/p/comment-forms-email-templates/)介绍完整示例流程。

@@ -76,7 +76,7 @@ See the complete annotated gallery on the [project website](https://jingyuan-zhe
 
 ## Deployment
 
-The public demo runs on Cloudflare Pages. Build the site with Hugo Extended 0.161.0 and deploy the generated `public/` directory to Cloudflare Pages or another static host of your choice.
+The public demo runs on Cloudflare Pages and is connected to this repository: each push to `main` triggers a production build with Hugo Extended 0.161.0. For your own site, connect the repository in Cloudflare Pages, set the build command to `hugo --minify --cleanDestinationDir --ignoreCache`, and set the output directory to `public`.
 
 ## Demo resources
 
