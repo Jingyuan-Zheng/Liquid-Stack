@@ -3116,7 +3116,7 @@ html[data-scheme="dark"] .photo-gallery__backdrop {
     }
 
     .wl-card-item:not(:has(.administrator-icon)) > .wl-user .wl-user-avatar {
-        content: url("/img/comment-guest-avatar.svg");
+        content: url("../img/comment-guest-avatar.svg");
         border: 0;
         background: transparent;
         opacity: 1;
@@ -3144,15 +3144,15 @@ html[data-scheme="dark"] .photo-gallery__backdrop {
     }
 
     .wl-like {
-        --waline-icon-mask: url("/img/waline-icons/lucide-heart.svg");
+        --waline-icon-mask: url("../img/waline-icons/lucide-heart.svg");
     }
 
     .wl-like.active {
-        --waline-icon-mask: url("/img/waline-icons/lucide-heart-filled.svg");
+        --waline-icon-mask: url("../img/waline-icons/lucide-heart-filled.svg");
     }
 
     .wl-reply {
-        --waline-icon-mask: url("/img/waline-icons/lucide-reply.svg");
+        --waline-icon-mask: url("../img/waline-icons/lucide-reply.svg");
     }
 
     .wl-card .wl-edit {

@@ -1,6 +1,6 @@
 ---
-title: "Liquid Stack Theme Update: What's New Beyond Stack v4"
-description: "A user-friendly guide to Liquid Stack's homepage, launchpad, photo wall, dashboard, CMS, bilingual experience, and comment enhancements."
+title: "Liquid Stack Theme Updates Beyond Stack v4"
+description: "A module-based overview of Liquid Stack's visual system, homepage widgets, content presentation, management tools, and bilingual experience."
 date: 2026-07-21
 lastmod: 2026-08-02
 slug: liquid-stack-customizations
@@ -8,107 +8,144 @@ categories: [Tutorials]
 tags: [Liquid Stack, Stack v4, Theme Update, Hugo]
 ---
 
-Liquid Stack is built on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's familiar blogging experience and expands it into a complete personal-site starter for stories, projects, photos, and site information.
+Liquid Stack is built on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blogging foundation and expands it through a visual system, homepage widgets, presentation pages, and management tools into a complete personal-site starter.
 
-You do not need to understand Hugo templates before using it. Select **Use this template** on GitHub, replace the sample identity and content, and start from a working bilingual site.
+Select **Use this template** on GitHub, replace the sample identity and content, and start from a working framework.
 
-## A homepage that introduces the whole site
+## Visual design
 
-Stack's original homepage focuses on the article feed. Liquid Stack adds a profile-style introduction while keeping the blog beneath it:
+### Liquid Glass inspiration
 
-- avatar, greeting, site description, and social links;
-- shortcut cards for the launchpad, About page, dashboard, and photo wall;
-- recent posts plus search, archives, categories, tags, and world clocks;
-- responsive layouts for desktop, tablet, mobile, and dark mode.
+Liquid Stack's largest update is its visual design. Inspired by Apple's **Liquid Glass** design language, it adopts the ideas that translate well to the web, including translucent material, clear content layers, light and dark adaptation, and gentle transformation.
 
-Visitors can understand the site at a glance and still browse it as a normal blog.
+Management overlays and focused photo views use translucency and background blur. Navigation, shortcuts, and controls form a functional layer above the content. Soft shadows and subtle tonal changes define card boundaries, while light and dark modes tune the canvas, surfaces, and text independently. Hover, expansion, and entrance motion keep attention on the active content.
 
-## A project launchpad
+### Rounded-corner hierarchy
 
-The launchpad presents projects like desktop applications. Each item can have an icon, title, preview image, related article, and repository link. Selecting an app opens its preview before taking the visitor to the full story.
+Different corner sizes communicate the scale and role of each element.
 
-Replace the included examples with software, research, design work, downloads, or useful links without rebuilding the page.
+- **28-pixel large corners** appear on homepage widgets, article cards, dashboard panels, the launchpad, and photo-wall content
+- **24 to 25-pixel medium corners** appear on the management menu, compact information panels, and mobile cards
+- **18 to 19-pixel small corners** appear on application previews, icon containers, and smaller content modules
+- **Pill corners** appear on selected sidebar items, tags, buttons, language controls, and the dark-mode switch
+- **Circular outlines** are used for avatars, the emoji badge, and world clocks
 
-## An interactive photo wall
+This hierarchy keeps large surfaces soft and complete while small controls remain precise.
 
-The photo wall supports both portrait and landscape images without forcing them into one crop. Visitors can rearrange photos by dragging them and open an image for a focused view. Their arrangement is remembered in the current browser.
+### Icon theme
 
-It works for travel photography, portfolios, event memories, design work, or project screenshots.
+The sidebar, homepage widgets, management menu, article actions, and dashboard use **Lucide** as their shared lightweight line-icon system. Related actions use consistent stroke weight, sizing, and spacing, while selected states rely on background and colour changes throughout the site.
 
-## A flexible About page
+### Main colours
 
-The About page is not limited to a résumé. The starter uses a fictional résumé to demonstrate the original animations, timeline, floating navigation, and section layout.
+- **Light mode** uses a pale grey-lavender canvas `#f5f5fa`, white cards, deep blue-grey accents `#34495e`, and soft grey body text `#707070`
+- **Dark mode** uses a deep grey canvas `#303030`, charcoal cards `#424242`, and an off-white accent `#ecf0f1`
+- **Functional accents** use small amounts of orange, blue, purple, and green in the world clock and dashboard statuses without changing the neutral foundation
 
-You can turn it into a personal introduction, a story about the website, a team page, a portfolio history, or a formal résumé.
+## Homepage widgets
 
-## A content dashboard
+### Profile widget
 
-The dashboard reads the site's Hugo content and automatically presents:
+A profile widget at the top of the homepage presents the avatar, greeting, site description, and social links. Its text, image, and links can be replaced while keeping the component structure.
 
-- published posts and total word count;
-- days online;
-- category distribution and popular tags;
-- publishing patterns by weekday and hour;
-- an annual publishing heatmap;
-- Hugo, Stack, deployment, comments, and CMS status.
+### Feature shortcut cards
 
-These summaries work without connecting an external analytics platform.
+Shortcut cards lead to the launchpad, About page, dashboard, and photo wall while previewing application icons or gallery content. Replacing their source data automatically updates the previews, and the complete blog feed remains below them.
 
-## Site management remains included
+### Content navigation widgets
 
-The emoji badge beside the avatar opens a management menu for the CMS, comment moderation, backlink applications, GitHub Pages, search consoles, analytics, and deployment services.
+Stack's search, archives, categories, and tag-cloud widgets remain available with Liquid Stack's card, icon, and spacing treatment.
 
-Sveltia CMS remains available at `/admin/`. After connecting your own GitHub repository, it can manage bilingual posts, categories, launchpad projects, and photo-wall entries. The public starter uses generic service placeholders instead of the original author's private backends.
+### World clocks
 
-## Comments that match the theme
+Two analogue world clocks show the visitor's local time and the configured site time, calculate the difference automatically, and allow the site time zone to be changed. The browser supplies the visitor's local zone without requiring manual selection.
 
-Stack already supports Waline. Liquid Stack improves how it fits into the site:
+## Content and reading
 
-- light and dark styling aligned with the theme;
-- bilingual commenting guidance;
-- page-view and comment totals;
-- reply notifications and article reactions;
-- optional fallback server support;
-- a site-wide page-view total in the footer.
+### Blog content structure
 
-The demo does not connect to a personal comment database. Add your own Waline endpoint when you are ready.
+Articles, archives, categories, tags, related posts, the table of contents, and full-text search continue to use Stack's content model, so existing Hugo posts remain compatible. Liquid Stack gives article cards, taxonomy labels, metadata, and the table of contents a consistent visual treatment.
 
-## Friend links as a complete page
+### Localized dates
 
-The friend-links page expands the original compact list into site cards, exchange rules, application and contact actions, and an optional embedded form. A separate platform area can link to GitHub, portfolios, or other public profiles.
+Post lists, article pages, and archive lists format dates using the visitor's browser region. Systems using year-month-day, day-month-year, or month-day-year therefore see their familiar order while the page retains a standard machine-readable date.
 
-## Better reading and sharing
+### Printing and sharing
 
-Articles include print, copy-link, and system-share actions. Chinese pages can share to Weibo, QQ, and X; English pages support X, Reddit, LinkedIn, WhatsApp, and email. Printed articles include author and source attribution.
+Article pages add print, copy-link, and system-share actions. Chinese pages support Weibo, QQ, and X; English pages support X, Reddit, LinkedIn, WhatsApp, and email. Printed articles include author and source attribution.
 
-The 404 page also turns an invalid path into a search query, helping visitors recover instead of stopping at an error.
+### Automatic language switching
 
-## One design for English and Simplified Chinese
+English and Simplified Chinese share the same homepage, sidebar, articles, launchpad, photo wall, About page, and dashboard layouts.
 
-The English and Chinese versions use the same homepage, sidebar, articles, launchpad, photo wall, About page, and dashboard structure. Only the displayed content changes. The browser remembers the language choice and tries to open the matching translation of the current page.
+On a first visit, the site reads the browser's preferred language. A Chinese-language browser opens the matching Chinese page automatically. A manual choice in the sidebar is saved for later visits, and switching language from an article opens the translation of that same article whenever it is available.
 
-Liquid Stack also includes bilingual human-readable sitemaps and multilingual XML sitemaps for search engines.
+Visitors using another browser language receive a small translation suggestion. Code blocks and other technical text are protected from automatic translation so commands and examples remain intact.
 
-## Replaceable icons and visual assets
+### Search, 404, and sitemaps
 
-The starter includes a consistent icon system plus generic 3D artwork for the avatar, logo, post covers, categories, and launchpad examples. These assets keep a new site visually complete and prevent empty cards or broken images.
+The 404 page converts an invalid path into a search query and presents the search interface instead of stopping at an error message.
 
-Replace them one at a time with your own identity when convenient.
+Human-readable English and Chinese sitemaps are included alongside multilingual XML sitemaps, helping both visitors and search engines discover content.
 
-## Stack's original blog features remain
+## Projects, photos, and the About page
 
-Liquid Stack still uses the official Stack v4.0.3 release as its blog foundation. Article lists, single pages, search, archives, categories, tags, table of contents, related posts, dark mode, and the responsive sidebar remain available.
+### Project launchpad
 
-The additions use Hugo's project-level override system instead of editing the official files under `themes/hugo-theme-stack/`. This preserves the upstream structure while keeping Liquid Stack's features maintainable.
+The launchpad presents software, creative work, research projects, or useful links. Each entry can define bilingual names, an icon, preview image, related article, and repository. Selecting an icon opens an application preview before the full article.
 
-## Who is it for?
+The public starter includes complete examples. Replacing project data and images updates both the launchpad and its homepage widget.
 
-Liquid Stack is a useful starting point for:
+### Interactive photo wall
 
-- personal blogs and digital gardens;
-- developer, designer, or researcher portfolios;
-- project showcases and download pages;
-- photography, travel, and life journals;
-- bilingual sites that need a browser-based CMS.
+The photo wall supports portrait and landscape images without forcing one crop. Visitors can rearrange photos by dragging them and open a focused view; the arrangement is stored in the current browser.
 
-Explore the live demo, then select **Use this template** on GitHub to create your own copy. The public starter keeps the complete framework and example content without publishing the original author's private posts, real résumé, avatar, or service credentials.
+It works for photography, travel, design work, events, and project screenshots. Replacing photo-wall data also updates the homepage gallery preview.
+
+### About page
+
+The About page keeps its entrance animation, timeline, floating menu, and section layout. A fictional résumé demonstrates the design without limiting how the page can be used.
+
+It can become a personal introduction, site story, team page, portfolio history, or formal résumé without rebuilding the layout and motion.
+
+## Management, statistics, and interaction
+
+### Site management menu
+
+The emoji badge beside the avatar opens a management menu for the CMS, comment moderation, backlink applications, GitHub Pages, search consoles, analytics, and deployment platforms. Its entries come from a data file and can be replaced with other tools and addresses.
+
+### Sveltia CMS
+
+Sveltia CMS remains available at `/admin/`. After connecting a GitHub repository, it can create and edit bilingual posts, categories, launchpad projects, and photo-wall content from the browser.
+
+The public starter includes the CMS framework and generic configuration without connecting the original author's private services or credentials.
+
+### Site dashboard
+
+The dashboard derives post counts, total words, days online, category distribution, popular tags, publishing habits, and an annual heatmap from Hugo content. It also presents the configured Hugo, Stack, deployment, comments, and CMS status.
+
+These summaries work without an external analytics platform.
+
+### Waline comments
+
+Comments continue to use Stack's Waline support with theme-matched cards, typography, and dark mode. The section adds guidance, page-view and comment totals, reply notifications, and reactions, while the footer can show site-wide views.
+
+Users only need to provide their own Waline endpoint; the demo does not connect to a personal comment database.
+
+### Friend links and applications
+
+The friend-link module expands the compact link list into site cards, exchange rules, application and contact actions, and an optional embedded form. A separate platform section can link to GitHub, portfolios, or other public profiles.
+
+## Open-source template and customization
+
+### Stack remains the foundation
+
+Liquid Stack continues to use the official Stack v4.0.3 release as its blog foundation. Project-level Hugo overrides maintain the additions without editing the official files under `themes/hugo-theme-stack/`, keeping the upstream structure and Liquid Stack extensions separate.
+
+### Generic examples and privacy
+
+The public starter keeps the pages, homepage widgets, management tools, and bilingual examples without publishing the original author's private posts, real résumé, avatar, or service credentials. Sample projects, images, logos, comments, and management links can all be replaced.
+
+### Suitable sites
+
+Liquid Stack is suitable for personal blogs, digital gardens, developer or designer portfolios, project showcases, photography journals, and bilingual sites that need a browser-based CMS. Explore the live demo, then select **Use this template** on GitHub to create your own copy.

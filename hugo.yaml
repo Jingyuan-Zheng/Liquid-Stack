@@ -1,4 +1,5 @@
 baseURL: "https://jingyuan-zheng.github.io/Liquid-Stack/"
+canonifyURLs: true
 title: Liquid Stack
 theme: hugo-theme-stack
 copyright: "My Blog"
@@ -35,6 +36,9 @@ permalinks:
 params:
   mainSections: [post]
   favicon: /img/liquid-stack/logo-transparent.png
+  dateFormat:
+    published: 02/Jan/2006
+    lastUpdated: 02/Jan/2006 15:04 MST
   sidebar:
     emoji: "😄"
     subtitle: A polished Hugo starter for your ideas.

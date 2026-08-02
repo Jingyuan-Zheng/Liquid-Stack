@@ -11,7 +11,7 @@ site_url: https://jingyuan-zheng.github.io/Liquid-Stack/
 display_url: https://jingyuan-zheng.github.io/Liquid-Stack/
 app_title: Liquid Stack CMS
 logo:
-  src: /admin/liquid-stack-logo.png
+  src: liquid-stack-logo.png
   show_in_header: true
 
 # Keep Hugo's existing English index.md / Chinese index.zh.md page-bundle

@@ -82,6 +82,33 @@ const getBrowserLanguageCodes = () => {
 
 const languageFromURL = (url: URL): SiteLanguage => (url.pathname === "/zh" || url.pathname.startsWith("/zh/") ? "zh" : "en");
 
+const initLocalizedArticleDates = () => {
+    try {
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+        });
+
+        document
+            .querySelectorAll<HTMLTimeElement>("time.article-time--published, .article-list--compact time[datetime]")
+            .forEach((element) => {
+                const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(element.dateTime);
+                if (!match) return;
+
+                const year = Number(match[1]);
+                const month = Number(match[2]);
+                const day = Number(match[3]);
+                const date = new Date(year, month - 1, day);
+
+                if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return;
+                element.textContent = formatter.format(date);
+            });
+    } catch {
+        // Keep Hugo's rendered date when browser locale formatting is unavailable.
+    }
+};
+
 const navigateToLanguage = (target: string) => {
     const targetURL = new URL(target, window.location.origin);
     targetURL.search = window.location.search;
@@ -1695,6 +1722,7 @@ const initRocketGestures = () => {
 
 const initCustomScripts = () => {
     initSiteLanguageExperience();
+    initLocalizedArticleDates();
     initArticleShare();
     initHomeSocialHover();
     initNavigationSmoothing();
