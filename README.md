@@ -35,7 +35,7 @@ The included workflow uses Hugo Extended 0.161.0 and deploys the generated `publ
 - `data/friend-links/` — friend-link cards
 - `assets/admin/` and `layouts/admin/` — generated Sveltia CMS configuration
 
-The vendored theme matches the official Stack v4.0.3 release. Liquid Stack currently supplies 23 overrides and 12 new templates from the project root. See the [complete comparison](https://jingyuan-zheng.github.io/Liquid-Stack/p/liquid-stack-customizations/).
+The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. See the [theme update overview](https://jingyuan-zheng.github.io/Liquid-Stack/p/liquid-stack-customizations/).
 
 Sample text and images are generic placeholders. Replace them before launching your site.
 

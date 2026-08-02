@@ -38,7 +38,7 @@ hugo --minify --cleanDestinationDir --ignoreCache
 - `static/img/`：可以替换的示例图片与图标
 - `themes/hugo-theme-stack/`：未经修改的官方 Stack v4.0.3
 
-当前站点根目录包含 23 个 Stack 模板覆盖和 12 个全新模板。详细差异见[完整改造对比](https://jingyuan-zheng.github.io/Liquid-Stack/zh/p/liquid-stack-customizations/)。
+官方 Stack 主题文件保持原样，Liquid Stack 的站点功能通过项目根目录扩展。具体更新见[主题更新说明](https://jingyuan-zheng.github.io/Liquid-Stack/zh/p/liquid-stack-customizations/)。
 
 ## 许可证
 

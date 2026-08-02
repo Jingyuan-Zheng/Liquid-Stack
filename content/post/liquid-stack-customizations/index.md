@@ -1,107 +1,114 @@
 ---
-title: "From Stack v4 to Liquid Stack: A Complete Comparison"
-description: "A file-by-file comparison of Liquid Stack with the official Hugo Theme Stack v4.0.3 release."
+title: "Liquid Stack Theme Update: What's New Beyond Stack v4"
+description: "A user-friendly guide to Liquid Stack's homepage, launchpad, photo wall, dashboard, CMS, bilingual experience, and comment enhancements."
 date: 2026-07-21
 lastmod: 2026-08-02
 slug: liquid-stack-customizations
 categories: [Tutorials]
-tags: [Liquid Stack, Stack v4, Theme Customization, Hugo]
+tags: [Liquid Stack, Stack v4, Theme Update, Hugo]
 ---
 
-This is a verifiable code comparison, not a feature overview. Liquid Stack uses [CaiJimmy/hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3 as its baseline and documents exactly what remains upstream Stack and what this project changes.
+Liquid Stack is built on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's familiar blogging experience and expands it into a complete personal-site starter for stories, projects, photos, and site information.
 
-## Comparison baseline and result
+You do not need to understand Hugo templates before using it. Select **Use this template** on GitHub, replace the sample identity and content, and start from a working bilingual site.
 
-The comparison uses the official Stack v4.0.3 tag at commit [`3e123a3`](https://github.com/CaiJimmy/hugo-theme-stack/commit/3e123a30b79b5d52a3a8e88a9dd678fcfd28e418). A file-by-file comparison confirms that `themes/hugo-theme-stack/` in Liquid Stack matches that release.
+## A homepage that introduces the whole site
 
-Liquid Stack therefore does not mix custom code into the vendored theme. Hugo loads the changes from the project root. The current extension layer contains:
+Stack's original homepage focuses on the article feed. Liquid Stack adds a profile-style introduction while keeping the blog beneath it:
 
-- 23 overrides of existing Stack templates;
-- 12 templates that do not exist in upstream Stack;
-- a separate `custom.scss` and `custom.ts` interaction layer;
-- data sources for the launchpad, photo wall, friend links, and management menu;
-- Sveltia CMS, enhanced Waline integration, an optional Cloudflare page-view Worker, and GitHub Pages deployment.
+- avatar, greeting, site description, and social links;
+- shortcut cards for the launchpad, About page, dashboard, and photo wall;
+- recent posts plus search, archives, categories, tags, and world clocks;
+- responsive layouts for desktop, tablet, mobile, and dark mode.
 
-The accurate description is a **complete site starter built on the Stack v4 blog core**, not a recoloured fork.
+Visitors can understand the site at a glance and still browse it as a normal blog.
 
-## What still comes from Stack
+## A project launchpad
 
-Stack v4.0.3 still supplies the responsive three-column structure, left navigation, article lists and single pages, archives, categories and tags, search, table of contents, dark mode, image processing, related content, multilingual content, and the original comment-provider framework.
+The launchpad presents projects like desktop applications. Each item can have an icon, title, preview image, related article, and repository link. Selecting an app opens its preview before taking the visitor to the full story.
 
-Posts remain normal Hugo bundles under `content/post/<slug>/`, and existing Stack configuration concepts continue to apply.
+Replace the included examples with software, research, design work, downloads, or useful links without rebuilding the page.
 
-## Home: from a post list to a site portal
+## An interactive photo wall
 
-Upstream `layouts/home.html` renders the post list, pagination, and footer. Liquid Stack keeps those elements and the right-sidebar widgets, then adds a profile header, social links, and shortcut cards for the launchpad, About page, dashboard, and photo wall. The card previews are populated from `data/launchpad/` and `data/photo-wall/`.
+The photo wall supports both portrait and landscape images without forcing them into one crop. Visitors can rearrange photos by dragging them and open an image for a focused view. Their arrangement is remembered in the current browser.
 
-The blog feed has not been removed; it is presented inside a broader personal-site homepage.
+It works for travel photography, portfolios, event memories, design work, or project screenshots.
 
-## Sidebar and management access
+## A flexible About page
 
-The upstream sidebar already contains the avatar, site metadata, social links, navigation, language selector, and dark-mode control. Liquid Stack preserves them and extends `layouts/_partials/sidebar/left.html` with an avatar-badge management trigger.
+The About page is not limited to a résumé. The starter uses a fictional résumé to demonstrate the original animations, timeline, floating navigation, and section layout.
 
-The new `sidebar/management-menu.html` reads `data/management_links.yaml` and can link to the CMS, comment moderation, backlink applications, GitHub Pages, search consoles, analytics, and deployment services.
+You can turn it into a personal introduction, a story about the website, a team page, a portfolio history, or a formal résumé.
 
-## Articles: sharing, printing, and metadata
+## A content dashboard
 
-Liquid Stack adds `article/components/share.html` with print and copy actions, Web Share support, Chinese targets for Weibo, QQ, and X, and English targets for X, Reddit, LinkedIn, WhatsApp, and email. Printed pages include author and source attribution.
+The dashboard reads the site's Hugo content and automatically presents:
 
-Overrides to `article.html`, `details.html`, `single.html`, and `list.html` connect that toolbar, refine bilingual and tag metadata, and ensure the dynamic footer is rendered per page.
+- published posts and total word count;
+- days online;
+- category distribution and popular tags;
+- publishing patterns by weekday and hour;
+- an annual publishing heatmap;
+- Hugo, Stack, deployment, comments, and CMS status.
 
-## Launchpad: a new project presentation system
+These summaries work without connecting an external analytics platform.
 
-The launchpad does not exist in upstream Stack. `layouts/page/apps.html` reads `data/launchpad/*.yaml`, where each item can define bilingual labels, an icon, a preview image, a related article, and a repository. Selecting an app opens a desktop-like preview before following the article link.
+## Site management remains included
 
-Users replace data and assets under `static/img/launchpad/` without rewriting the template.
+The emoji badge beside the avatar opens a management menu for the CMS, comment moderation, backlink applications, GitHub Pages, search consoles, analytics, and deployment services.
 
-## Photo wall: an interactive gallery
+Sveltia CMS remains available at `/admin/`. After connecting your own GitHub repository, it can manage bilingual posts, categories, launchpad projects, and photo-wall entries. The public starter uses generic service placeholders instead of the original author's private backends.
 
-`layouts/page/pictures.html`, `data/photo-wall/`, and the gallery code in `assets/ts/custom.ts` provide an independent photo wall. It respects portrait and landscape dimensions, supports drag-to-rearrange and focused viewing, and stores positions in the visitor's browser using stable item ids.
+## Comments that match the theme
 
-This is separate from Stack's normal article-cover image support.
+Stack already supports Waline. Liquid Stack improves how it fits into the site:
 
-## Dashboard generated from Hugo content
+- light and dark styling aligned with the theme;
+- bilingual commenting guidance;
+- page-view and comment totals;
+- reply notifications and article reactions;
+- optional fallback server support;
+- a site-wide page-view total in the footer.
 
-The new `layouts/page/dashboard.html` builds a site overview from Hugo content: published post and word counts, days online, category distribution, popular tags, publishing activity by weekday and hour, and an annual publishing heatmap. It also presents the configured Hugo, Stack, deployment, comments, and CMS stack.
+The demo does not connect to a personal comment database. Add your own Waline endpoint when you are ready.
 
-These summaries do not require an external analytics service. Waline can optionally provide page-view and comment counts.
+## Friend links as a complete page
 
-## Waline: extending an existing Stack provider
+The friend-links page expands the original compact list into site cards, exchange rules, application and contact actions, and an optional embedded form. A separate platform area can link to GitHub, portfolios, or other public profiles.
 
-Stack already supports Waline. Liquid Stack overrides the provider rather than claiming a new comment system. The changes add bilingual guidance, engagement counts, theme-matched light and dark styling, custom reaction labels, primary/fallback server probing, comment-toolbar adjustments, and a site-wide page-view total in the footer.
+## Better reading and sharing
 
-The public starter contains placeholder endpoints; users must supply their own service.
+Articles include print, copy-link, and system-share actions. Chinese pages can share to Weibo, QQ, and X; English pages support X, Reddit, LinkedIn, WhatsApp, and email. Printed articles include author and source attribution.
 
-## Friend links: from a compact list to a workflow
+The 404 page also turns an invalid path into a search query, helping visitors recover instead of stopping at an error.
 
-Upstream `article/components/links.html` renders a compact link list. Liquid Stack expands it into a platform section, data-driven friend cards, backlink rules, application and contact actions, and an optional embedded application form.
+## One design for English and Simplified Chinese
 
-## Languages, SEO, sitemaps, and 404 search
+The English and Chinese versions use the same homepage, sidebar, articles, launchpad, photo wall, About page, and dashboard structure. Only the displayed content changes. The browser remembers the language choice and tries to open the matching translation of the current page.
 
-The new `head/language-routing.html` remembers a visitor's language choice and selects the matching English or Chinese page. Head and Open Graph overrides add language routing, favicon handling, and richer social metadata.
+Liquid Stack also includes bilingual human-readable sitemaps and multilingual XML sitemaps for search engines.
 
-Liquid Stack also adds bilingual human-readable sitemaps, an XML sitemap index and multilingual flat sitemap, a 404 page that turns the invalid path into a search query, a world-clock widget, and expanded taxonomy, archive, tag-cloud, and table-of-contents presentation.
+## Replaceable icons and visual assets
 
-## Icons and interaction layer
+The starter includes a consistent icon system plus generic 3D artwork for the avatar, logo, post covers, categories, and launchpad examples. These assets keep a new site visually complete and prevent empty cards or broken images.
 
-Upstream Stack's icon helper loads local SVG files. Liquid Stack retains that fallback and adds a consistent mapping for Simple Icons, Lucide, and Phosphor icons used by brands, management services, and interface controls.
+Replace them one at a time with your own identity when convenient.
 
-The custom front-end layer initializes language behaviour, article sharing, homepage motion, navigation smoothing, the launchpad, photo wall, world clocks, dashboard, management menu, and mobile gestures, with reduced-motion fallbacks.
+## Stack's original blog features remain
 
-## CMS and template deployment
+Liquid Stack still uses the official Stack v4.0.3 release as its blog foundation. Article lists, single pages, search, archives, categories, tags, table of contents, related posts, dark mode, and the responsive sidebar remain available.
 
-Stack does not ship a content-management backend. Liquid Stack exposes Sveltia CMS at `/admin/`; `layouts/admin/section.cmsconfig.yml` and `assets/admin/cms-config-base.yml` generate collections for bilingual posts, categories, launchpad entries, photo-wall items, and other editable data.
+The additions use Hugo's project-level override system instead of editing the official files under `themes/hugo-theme-stack/`. This preserves the upstream structure while keeping Liquid Stack's features maintainable.
 
-The repository also includes a GitHub Pages workflow. After choosing **Use this template**, users can update the identity and URL in `hugo.yaml` and deploy the same site from their own repository.
+## Who is it for?
 
-## The 35 template differences
+Liquid Stack is a useful starting point for:
 
-Liquid Stack overrides these 23 upstream templates:
+- personal blogs and digital gardens;
+- developer, designer, or researcher portfolios;
+- project showcases and download pages;
+- photography, travel, and life journals;
+- bilingual sites that need a browser-based CMS.
 
-`404.html`, `article/article.html`, `article/components/details.html`, `article/components/links.html`, `comments/provider/giscus.html`, `comments/provider/waline.html`, `cookies/analytics.html`, `footer/footer.html`, `head/custom.html`, `head/head.html`, `head/opengraph/provider/base.html`, `head/opengraph/provider/twitter.html`, `helper/icon.html`, `sidebar/left.html`, `widget/archives.html`, `widget/categories.html`, `widget/tag-cloud.html`, `widget/toc.html`, `archives.html`, `home.html`, `list.html`, `page/search.html`, and `single.html`.
-
-These 12 templates are new and have no upstream counterpart:
-
-`article/components/share.html`, `head/language-routing.html`, `sidebar/management-menu.html`, `widget/world-clock.html`, `admin/section.cmsconfig.yml`, `index.sitemapflat.xml`, `page/apps.html`, `page/dashboard.html`, `page/pictures.html`, `page/sitemap.html`, `sitemap.xml`, and `sitemapindex.xml`.
-
-That list is the compatibility boundary to review when updating the vendored Stack release.
+Explore the live demo, then select **Use this template** on GitHub to create your own copy. The public starter keeps the complete framework and example content without publishing the original author's private posts, real résumé, avatar, or service credentials.
