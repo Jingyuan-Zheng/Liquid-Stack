@@ -1,0 +1,9 @@
+order: 1
+id: example-site
+title: Example Site
+titleEn: Example Site
+description: A generic friend-link entry demonstrating the card layout.
+descriptionEn: A generic friend-link entry demonstrating the card layout.
+website: https://example.com/
+image: /img/liquid-stack/logo.png
+rss: https://example.com/index.xml

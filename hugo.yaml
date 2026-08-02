@@ -1,0 +1,84 @@
+baseURL: "https://example.github.io/"
+title: Liquid Stack
+theme: hugo-theme-stack
+copyright: "My Blog"
+defaultContentLanguage: en
+hasCJKLanguage: true
+mediaTypes:
+  application/yaml:
+    suffixes: [yml]
+outputFormats:
+  CMSConfig:
+    mediaType: application/yaml
+    baseName: config
+    isPlainText: true
+    notAlternative: true
+  sitemapflat:
+    mediaType: application/xml
+    baseName: sitemap-flat
+    isPlainText: true
+    notAlternative: true
+languages:
+  en: { label: English, locale: en-US, weight: 1 }
+  zh:
+    label: 简体中文
+    locale: zh-Hans
+    weight: 2
+    copyright: "我的博客"
+    params:
+      sidebar:
+        subtitle: 一个精致的 Hugo 博客起步模板。
+pagination: { pagerSize: 10 }
+permalinks:
+  post: /p/:slug/
+  page: /:slug/
+params:
+  mainSections: [post]
+  favicon: /img/liquid-stack/logo-transparent.png
+  sidebar:
+    emoji: "😄"
+    subtitle: A polished Hugo starter for your ideas.
+    avatar: /img/liquid-stack/avatar.png
+  footer: { since: 2026, customText: Built with Liquid Stack. }
+  article:
+    math: true
+    toc: true
+    readingTime: true
+    license: { enabled: true, default: Licensed under CC BY-SA 4.0 }
+  comments:
+    enabled: true
+    provider: waline
+    waline:
+      serverURL: https://example.com/waline
+  widgets:
+    homepage:
+      - { type: search }
+      - { type: world-clock }
+      - type: archives
+        params: { limit: 5 }
+      - type: categories
+        params: { limit: 10 }
+      - type: tag-cloud
+        params: { limit: 10 }
+    page: [{ type: toc }]
+  defaultImage:
+    opengraph: { enabled: true, local: true, src: /img/liquid-stack/featured.png }
+  colorScheme: { toggle: true, default: auto }
+  imageProcessing:
+    thumbnail: { enabled: true }
+    content: { enabled: true }
+menu:
+  social:
+    - { identifier: github, name: GitHub, url: https://github.com/your-account/liquid-stack, weight: 1, params: { icon: brand-github, newTab: true } }
+    - { identifier: rss, name: RSS, url: /index.xml, weight: 2, params: { icon: rss, newTab: true } }
+related:
+  includeNewer: true
+  threshold: 60
+  indices: [{ name: tags, weight: 100 }, { name: categories, weight: 200 }]
+markup:
+  goldmark:
+    renderer: { unsafe: true }
+  tableOfContents: { endLevel: 4, ordered: true, startLevel: 2 }
+  highlight: { noClasses: false, lineNos: true }
+outputs:
+  home: [HTML, RSS, sitemapflat]
