@@ -8,9 +8,9 @@ Liquid Stack 是一套基于原版 [Hugo Theme Stack](https://github.com/CaiJimm
 
 ![Liquid Stack 主页](project-site/images/screenshots/home-light-en.png)
 
-| 首页公告 |
-| --- |
-| ![首页公告](project-site/images/screenshots/home-announcement.png) |
+| 首页公告 | 展开的公告 |
+| --- | --- |
+| ![首页公告](project-site/images/screenshots/home-announcement.png) | ![展开的首页公告](project-site/images/screenshots/home-announcement-open.png) |
 
 | Liquid Glass 细节 | 启动台与照片墙 |
 | --- | --- |
