@@ -8,6 +8,10 @@ Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [
 
 ![Liquid Stack homepage](project-site/images/screenshots/home-light-en.png)
 
+| Homepage announcement |
+| --- |
+| ![Homepage announcement](project-site/images/screenshots/home-announcement.png) |
+
 | Liquid Glass details | Launchpad and photo wall |
 | --- | --- |
 | ![Liquid Glass controls](project-site/images/screenshots/liquid-glass-social.png) | ![Project launchpad](project-site/images/screenshots/launchpad.png) |
