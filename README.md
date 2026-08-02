@@ -1,6 +1,6 @@
 # Liquid Stack
 
-[简体中文](README.zh.md) · [Live demo](https://jingyuan-zheng.github.io/Liquid-Stack/) · [Use this template](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
+[简体中文](README.zh.md) · [Live demo](https://liquid-stack.pages.dev/) · [Use this template](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
 
 Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blog foundation and adds a profile homepage, launchpad, interactive photo wall, content dashboard, Sveltia CMS, enhanced Waline integration, friend-link workflow, bilingual sitemaps, and ready-to-edit sample content.
 
@@ -20,9 +20,9 @@ Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [
 4. Add posts under `content/post/<slug>/`; use `index.md` for English and `index.zh.md` for Simplified Chinese.
 5. Preview with `hugo server -D`, then build with `hugo --minify --cleanDestinationDir --ignoreCache`.
 
-## GitHub Pages
+## Deployment
 
-The included workflow uses Hugo Extended 0.161.0 and deploys the generated `public/` directory to GitHub Pages. It also derives the correct project-site base URL from GitHub Pages during the build.
+The public demo runs on Cloudflare Pages. Build the site with Hugo Extended 0.161.0 and deploy the generated `public/` directory to Cloudflare Pages or another static host of your choice.
 
 ## Customization map
 
@@ -35,7 +35,7 @@ The included workflow uses Hugo Extended 0.161.0 and deploys the generated `publ
 - `data/friend-links/` — friend-link cards
 - `assets/admin/` and `layouts/admin/` — generated Sveltia CMS configuration
 
-The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. See the [theme update overview](https://jingyuan-zheng.github.io/Liquid-Stack/p/liquid-stack-customizations/).
+The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. See the [theme update overview](https://liquid-stack.pages.dev/p/liquid-stack-customizations/).
 
 Sample text and images are generic placeholders. Replace them before launching your site.
 

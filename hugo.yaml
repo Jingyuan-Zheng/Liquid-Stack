@@ -1,4 +1,4 @@
-baseURL: "https://jingyuan-zheng.github.io/Liquid-Stack/"
+baseURL: "https://liquid-stack.pages.dev/"
 canonifyURLs: true
 title: Liquid Stack
 theme: hugo-theme-stack

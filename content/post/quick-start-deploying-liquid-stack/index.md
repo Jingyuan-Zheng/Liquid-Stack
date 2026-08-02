@@ -4,7 +4,7 @@ description: The shortest path from a copied theme to a published first page.
 date: 2026-07-20
 slug: quick-start-deploying-liquid-stack
 categories: [Tutorials]
-tags: [Hugo, GitHub Pages, Deployment]
+tags: [Hugo, Cloudflare Pages, Deployment]
 ---
 
 This guide shows how to use Liquid Stack as the starting point for your own site and publish a first version.
@@ -19,7 +19,7 @@ Install Hugo Extended and run `hugo server -D` from the project root. Open the l
 
 ## Check before publishing
 
-Run `hugo --minify --cleanDestinationDir --ignoreCache`. Confirm that the home page, posts, photo wall, launchpad, and admin page open correctly before pushing source files to your repository.
+Run `hugo --minify --cleanDestinationDir --ignoreCache`. Confirm that the home page, posts, photo wall, launchpad, and admin page open correctly before pushing source files to your repository. The generated `public/` directory can be published to Cloudflare Pages or another static host.
 
 ## Next step
 

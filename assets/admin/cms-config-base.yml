@@ -7,8 +7,8 @@ backend:
   repo: Jingyuan-Zheng/Liquid-Stack
   branch: main
 
-site_url: https://jingyuan-zheng.github.io/Liquid-Stack/
-display_url: https://jingyuan-zheng.github.io/Liquid-Stack/
+site_url: https://liquid-stack.pages.dev/
+display_url: https://liquid-stack.pages.dev/
 app_title: Liquid Stack CMS
 logo:
   src: liquid-stack-logo.png

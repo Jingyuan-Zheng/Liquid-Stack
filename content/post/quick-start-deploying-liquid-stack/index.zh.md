@@ -4,7 +4,7 @@ description: 从复制主题到发布第一个页面的最短路径。
 date: 2026-07-20
 slug: quick-start-deploying-liquid-stack
 categories: [教程]
-tags: [Hugo, GitHub Pages, 部署]
+tags: [Hugo, Cloudflare Pages, 部署]
 ---
 
 本文介绍如何把 Liquid Stack 作为自己的博客起点，并发布第一个可访问的版本。
@@ -19,7 +19,7 @@ tags: [Hugo, GitHub Pages, 部署]
 
 ## 发布前检查
 
-运行 `hugo --minify --cleanDestinationDir --ignoreCache`。确认首页、文章、相册、启动台和管理页都能打开，再把源文件推送到自己的仓库。GitHub Actions 可以按你的部署配置自动发布。
+运行 `hugo --minify --cleanDestinationDir --ignoreCache`。确认首页、文章、相册、启动台和管理页都能打开，再把源文件推送到自己的仓库。生成的 `public/` 目录可以发布到 Cloudflare Pages 或其他静态托管平台。
 
 ## 下一步
 

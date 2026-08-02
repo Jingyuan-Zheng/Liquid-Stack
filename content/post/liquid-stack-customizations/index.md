@@ -112,7 +112,7 @@ It can become a personal introduction, site story, team page, portfolio history,
 
 ### Site management menu
 
-The emoji badge beside the avatar opens a management menu for the CMS, comment moderation, backlink applications, GitHub Pages, search consoles, analytics, and deployment platforms. Its entries come from a data file and can be replaced with other tools and addresses.
+The emoji badge beside the avatar opens a management menu for the CMS, comment moderation, backlink applications, Cloudflare Pages, search consoles, analytics, and deployment platforms. Its entries come from a data file and can be replaced with other tools and addresses.
 
 ### Sveltia CMS
 
