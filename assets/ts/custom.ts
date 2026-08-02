@@ -987,8 +987,10 @@ const initPhotoGallery = () => {
             }
 
             const edgePadding = Math.min(72, Math.max(34, width * 0.055));
-            const topPadding = Math.min(160, Math.max(100, width * 0.1));
-            const rowPitch = Math.min(350, Math.max(300, width * 0.255));
+            // Keep the first row close to the page header while preserving the
+            // loose, draggable composition on larger screens.
+            const topPadding = Math.min(120, Math.max(72, width * 0.07));
+            const rowPitch = Math.min(320, Math.max(280, width * 0.22));
             const height = topPadding * 2 + rowCounts.length * rowPitch;
             const centerX = width / 2;
             const centerY = height / 2;

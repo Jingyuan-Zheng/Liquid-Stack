@@ -2662,7 +2662,7 @@ body.photo-gallery-open {
     --gallery-drag-x: 0px;
     --gallery-drag-y: 0px;
 
-    min-height: unquote("max(1500px, calc(170vh - 120px))");
+    min-height: unquote("max(1200px, calc(120vh - 120px))");
     position: relative;
     margin: 0 auto;
     overflow: visible;
