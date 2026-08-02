@@ -17,6 +17,10 @@ Liquid Stack 是一套基于原版 [Hugo Theme Stack](https://github.com/CaiJimm
 | --- | --- | --- |
 | ![网站仪表盘](project-site/images/screenshots/dashboard-statistics.png) | ![Sveltia CMS](project-site/images/screenshots/cms.png) | ![Waline 评论布局](project-site/images/screenshots/comments.png) |
 
+| 网站管理菜单 | 友链申请模板 |
+| --- | --- |
+| ![网站管理菜单](project-site/images/screenshots/management-menu.png) | ![中英双语友链申请表单](project-site/images/screenshots/backlink-form.png) |
+
 完整的带说明截图请查看[项目介绍页](https://jingyuan-zheng.github.io/Liquid-Stack/)。
 
 ## Liquid Stack 新增内容

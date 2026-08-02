@@ -17,6 +17,10 @@ Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [
 | --- | --- | --- |
 | ![Site dashboard](project-site/images/screenshots/dashboard-statistics.png) | ![Sveltia CMS](project-site/images/screenshots/cms.png) | ![Waline comment layout](project-site/images/screenshots/comments.png) |
 
+| Site management menu | Backlink application template |
+| --- | --- |
+| ![Site management menu](project-site/images/screenshots/management-menu.png) | ![Bilingual backlink application form](project-site/images/screenshots/backlink-form.png) |
+
 See the complete annotated gallery on the [project website](https://jingyuan-zheng.github.io/Liquid-Stack/).
 
 ## What Liquid Stack adds

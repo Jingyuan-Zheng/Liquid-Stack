@@ -400,7 +400,7 @@
 
       .showcase-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 20px;
       }
 
@@ -412,21 +412,11 @@
         box-shadow: 0 12px 34px rgba(38, 49, 62, 0.07);
       }
 
-      .showcase-card.featured {
-        grid-column: 1 / -1;
-      }
-
       .showcase-card img {
         display: block;
         width: 100%;
         height: auto;
         background: var(--surface-soft);
-      }
-
-      .showcase-card:not(.featured) img {
-        aspect-ratio: 1.62;
-        object-fit: cover;
-        object-position: top center;
       }
 
       .showcase-caption {
@@ -603,18 +593,13 @@
 
         .feature-grid,
         .module-grid,
-        .section-heading,
-        .showcase-grid {
+        .section-heading {
           grid-template-columns: 1fr;
         }
 
         .showcase-heading {
           display: grid;
           gap: 16px;
-        }
-
-        .showcase-card.featured {
-          grid-column: auto;
         }
 
         .feature-card {
@@ -807,6 +792,14 @@
           <figure class="showcase-card">
             <img src="images/screenshots/cms.png" alt="Liquid Stack Sveltia CMS" loading="lazy" />
             <figcaption class="showcase-caption"><strong data-en="Visual CMS" data-zh="可视化 CMS">可视化 CMS</strong><span data-en="A themed Sveltia CMS for bilingual posts, gallery items, launchpad entries, and site data." data-zh="经过主题化的 Sveltia CMS，可管理双语文章、照片墙、启动台和站点数据。">经过主题化的 Sveltia CMS，可管理双语文章、照片墙、启动台和站点数据。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/management-menu.png" alt="Liquid Stack site management menu" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Site management menu" data-zh="网站管理菜单">网站管理菜单</strong><span data-en="A configurable management menu groups content editing, comments, applications, source code, deployment, search, and analytics tools." data-zh="可配置的管理菜单集中内容编辑、评论、申请、源码、部署、搜索与分析工具。">可配置的管理菜单集中内容编辑、评论、申请、源码、部署、搜索与分析工具。</span></figcaption>
+          </figure>
+          <figure class="showcase-card">
+            <img src="images/screenshots/backlink-form.png" alt="Bilingual backlink application form template" loading="lazy" />
+            <figcaption class="showcase-caption"><strong data-en="Backlink application template" data-zh="友链申请模板">友链申请模板</strong><span data-en="A bilingual Microsoft Forms template is included as a copyable starting point for backlink applications and updates." data-zh="提供一份可复制的 Microsoft Forms 中英双语模板，用于友链申请与更新。">提供一份可复制的 Microsoft Forms 中英双语模板，用于友链申请与更新。</span></figcaption>
           </figure>
           <figure class="showcase-card">
             <img src="images/screenshots/comments.png" alt="Liquid Stack comment interface" loading="lazy" />
