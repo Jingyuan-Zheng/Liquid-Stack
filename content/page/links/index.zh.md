@@ -24,19 +24,19 @@ friendlinks:
   emptyTitle: 等待第一位邻居
   emptyDescription: 在 data/friend-links/ 中加入通用示例。
   requestTitle: 申请友链
-  requestDescription: 阅读规则后，使用你自己的表单或联系方式。
+  requestDescription: 先阅读规则，再打开演示表单或复制一份表单模板。
   rulesPrompt: 申请前请阅读
   rulesTitle: 友链规则
   rulesDescription: 为你自己的网站设置交换条款。
   rulesCTA: 阅读规则
   rulesURL: friend-links-rules/
-  cta: 配置申请链接
-  ctaURL: https://example.com/backlink-application
-  emailCTA: 配置联系链接
-  emailURL: https://example.com/contact
-  applicationTitle: 友链申请
-  applicationDescription: 请替换成你自己的嵌入表单或联系流程。
-  applicationURL: https://example.com/backlink-application
+  cta: 打开演示表单
+  ctaURL: https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u
+  emailCTA: 复制此表单模板
+  emailURL: https://forms.cloud.microsoft/Pages/ShareFormPage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u&sharetoken=TnsZOZAtRpQBsNnIX6GA
+  applicationTitle: 友链申请演示
+  applicationDescription: 此表单只用于界面参考，填写内容不会进入正式友链审核或本站数据库。请勿填写真实敏感信息。喜欢此模板时，可以使用上方链接复制一份并连接到自己的流程。
+  applicationURL: https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u
 ---
 
-此页面演示 Liquid Stack 的链接中心、友链卡片、规则页和可配置申请嵌入。所有网址均为安全的通用占位链接。
+此页面演示 Liquid Stack 的链接中心、友链卡片、规则页与 Microsoft Forms 申请流程。演示填写不会被本站记录或用于正式审核。复制表单模板后，请替换站点信息、隐私说明和通知设置。

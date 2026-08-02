@@ -13,7 +13,7 @@
 - id: backlink-applications
   title: Backlink applications
   titleZh: 友链申请
-  url: https://example.com/backlink-application
+  url: https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u
   icon: link
   external: true
 - id: github

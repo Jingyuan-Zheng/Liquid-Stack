@@ -59,6 +59,15 @@ Liquid Stack is a complete bilingual Hugo site starter built on the unmodified [
 
 The public demo runs on Cloudflare Pages. Build the site with Hugo Extended 0.161.0 and deploy the generated `public/` directory to Cloudflare Pages or another static host of your choice.
 
+## Demo resources
+
+- [Comments, backlink forms, and email templates](https://liquid-stack.pages.dev/p/comment-forms-email-templates/) explains the complete example workflow.
+- The public Demo uses a front-end-only comment preview with sample comments. It does not record submissions or connect to a comment database.
+- The homepage footer displays a clearly marked static site-view example, while every page shows a sample runtime of 365 days. Real mode reads the site-wide count from Waline.
+- [Open the backlink application demo](https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u) or [copy the Microsoft Forms template](https://forms.cloud.microsoft/Pages/ShareFormPage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u&sharetoken=TnsZOZAtRpQBsNnIX6GA).
+- The application demo is for reference only. The Demo site does not retain entries or use them for review. Copy the template before connecting it to your own workflow.
+- Sanitized bilingual HTML messages are available under [`examples/email-templates`](examples/email-templates/).
+
 ## Customization map
 
 - `hugo.yaml` — site identity, menus, widgets, languages, and theme options
@@ -68,6 +77,7 @@ The public demo runs on Cloudflare Pages. Build the site with Hugo Extended 0.16
 - `data/launchpad/` — launchpad projects
 - `data/photo-wall/` — interactive gallery entries
 - `data/friend-links/` — friend-link cards
+- `examples/email-templates/` — sanitized reader-reply and backlink-approval HTML emails
 - `assets/admin/` and `layouts/admin/` — generated Sveltia CMS configuration
 
 The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. Read [Welcome to Liquid Stack: New Theme Features](https://liquid-stack.pages.dev/p/welcome-to-liquid-stack/) for the complete guide.

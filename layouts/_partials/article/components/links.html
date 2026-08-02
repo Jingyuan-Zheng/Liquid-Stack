@@ -72,7 +72,10 @@
                     {{- $host := strings.TrimPrefix "www." $parsedURL.Host -}}
                     {{- $friendTitle := $friend.title -}}
                     {{- $friendDescription := default "" $friend.description -}}
-                    {{- if not $isChinese -}}
+                    {{- if $isChinese -}}
+                        {{- $friendTitle = default $friendTitle $friend.titleZh -}}
+                        {{- $friendDescription = default $friendDescription $friend.descriptionZh -}}
+                    {{- else -}}
                         {{- $friendTitle = default $friendTitle $friend.titleEn -}}
                         {{- $friendDescription = default $friendDescription $friend.descriptionEn -}}
                     {{- end -}}
@@ -125,8 +128,8 @@
                 <span>{{ default .emptyDescription .requestDescription }}</span>
             </span>
             <span class="friend-links__actions">
-                <a class="friend-links__cta" href="{{ .ctaURL }}">{{ .cta }}</a>
-                <a class="friend-links__cta friend-links__cta--secondary" href="{{ .emailURL }}">{{ .emailCTA }}</a>
+                <a class="friend-links__cta" href="{{ .ctaURL }}" target="_blank" rel="noopener noreferrer">{{ .cta }}</a>
+                <a class="friend-links__cta friend-links__cta--secondary" href="{{ .emailURL }}" target="_blank" rel="noopener noreferrer">{{ .emailCTA }}</a>
             </span>
         </div>
 

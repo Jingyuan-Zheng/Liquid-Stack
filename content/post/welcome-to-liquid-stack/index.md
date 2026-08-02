@@ -1,8 +1,8 @@
 ---
 title: "Welcome to Liquid Stack: New Theme Features"
 description: "A complete guide to starting with Liquid Stack and exploring its visual system, homepage widgets, content presentation, management tools, and bilingual experience."
-date: 2026-08-02
-lastmod: 2026-08-02
+date: 2026-08-02T19:40:00+02:00
+lastmod: 2026-08-02T19:40:00+02:00
 slug: welcome-to-liquid-stack
 categories: [Tutorials]
 tags: [Liquid Stack, Stack v4, Theme Update, Hugo, Starter]

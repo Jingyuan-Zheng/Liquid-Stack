@@ -1,4 +1,5 @@
 {{- $serverResolver := resources.Get "js/waline-server.js" | minify | fingerprint -}}
+{{- $walineDemo := default false .Site.Params.comments.waline.demoMode -}}
 
 <footer class="site-footer">
     <section class="copyright">
@@ -16,17 +17,24 @@
         <span aria-hidden="true"> · </span>
         {{ with .Site.GetPage "page" "dashboard" }}<a href="{{ .RelPermalink }}">{{ cond (hasPrefix $.Site.Language.Lang "zh") "仪表盘" "Dashboard" }}</a>{{ end }}
         {{- if ne .Kind "404" -}}
-            <span class="waline-pageview-tracker" hidden aria-hidden="true"></span>
             {{- if .IsHome }}
                 <br>
                 <span class="waline-site-pageview-count" aria-live="polite">
-                    {{ cond (hasPrefix .Site.Language.Lang "zh") "全站浏览：—" "Site views: —" }}
+                    {{- if $walineDemo -}}
+                        {{ cond (hasPrefix .Site.Language.Lang "zh") "全站浏览：" "Site views: " }}{{ lang.FormatNumber 0 (default 2673 .Site.Params.footer.demoSiteViews) }} {{ cond (hasPrefix .Site.Language.Lang "zh") "（示意）" "(example)" }}
+                    {{- else -}}
+                        {{ cond (hasPrefix .Site.Language.Lang "zh") "全站浏览：—" "Site views: —" }}
+                    {{- end -}}
                 </span>
-                <br>
-                <small class="site-view-counter__since">
-                    {{ cond (hasPrefix .Site.Language.Lang "zh") "统计始于 2026-05-26" "Counting since 2026-05-26" }}
-                </small>
+                {{- if not $walineDemo }}
+                    <br>
+                    <small class="site-view-counter__since">
+                        {{ cond (hasPrefix .Site.Language.Lang "zh") "统计始于 2026-05-26" "Counting since 2026-05-26" }}
+                    </small>
+                {{- end }}
             {{- end }}
+            {{- if not $walineDemo }}
+            <span class="waline-pageview-tracker" hidden aria-hidden="true"></span>
             <script type="module">
                 import { pageviewCount } from "https://unpkg.com/@waline/client@v3/dist/pageview.js";
                 import { resolveWalineServerURL } from "{{ $serverResolver.RelPermalink }}";
@@ -64,6 +72,7 @@
                     })
                     .catch(() => {});
             </script>
+            {{- end }}
         {{- end }}
         <br>
         <span>
@@ -73,13 +82,22 @@
                 Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> · Theme <a href="https://github.com/Jingyuan-Zheng/Liquid-Stack" target="_blank" rel="noopener"><strong>Liquid Stack</strong></a> designed by <a href="https://github.com/Jingyuan-Zheng" target="_blank" rel="noopener">Jingyuan Zheng</a>
             {{ end }}
         </span>
-        {{ with .Site.Params.footer.launchDate }}
+        {{ if $walineDemo }}
             <br>
             <small class="site-runtime">
                 {{ cond (hasPrefix $.Site.Language.Lang "zh") "本站已运行" "Online for" }}
-                <strong data-site-runtime data-launch-date="{{ . }}">0</strong>
+                <strong>{{ lang.FormatNumber 0 (default 365 .Site.Params.footer.demoRuntimeDays) }}</strong>
                 {{ cond (hasPrefix $.Site.Language.Lang "zh") "天" "days" }}
             </small>
+        {{ else }}
+            {{ with .Site.Params.footer.launchDate }}
+                <br>
+                <small class="site-runtime">
+                    {{ cond (hasPrefix $.Site.Language.Lang "zh") "本站已运行" "Online for" }}
+                    <strong data-site-runtime data-launch-date="{{ . }}">0</strong>
+                    {{ cond (hasPrefix $.Site.Language.Lang "zh") "天" "days" }}
+                </small>
+            {{ end }}
         {{ end }}
     </section>
 </footer>

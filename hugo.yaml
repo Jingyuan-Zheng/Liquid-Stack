@@ -43,7 +43,11 @@ params:
     emoji: "😄"
     subtitle: A polished Hugo starter for your ideas.
     avatar: /img/liquid-stack/avatar.png
-  footer: { since: 2026, customText: Built with Liquid Stack. }
+  footer:
+    since: 2026
+    customText: Built with Liquid Stack.
+    demoSiteViews: 2673
+    demoRuntimeDays: 365
   article:
     math: true
     toc: true
@@ -54,6 +58,7 @@ params:
     provider: waline
     waline:
       serverURL: https://example.com/waline
+      demoMode: true
   widgets:
     homepage:
       - { type: search }

@@ -1,8 +1,8 @@
 ---
 title: "欢迎使用 Liquid Stack：主题新增功能"
 description: "从首次配置到视觉、主页组件、内容展示、管理后台与双语体验，完整了解并开始使用 Liquid Stack。"
-date: 2026-08-02
-lastmod: 2026-08-02
+date: 2026-08-02T19:40:00+02:00
+lastmod: 2026-08-02T19:40:00+02:00
 slug: welcome-to-liquid-stack
 categories: [教程]
 tags: [Liquid Stack, Stack v4, 主题更新, Hugo, 模板]

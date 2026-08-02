@@ -61,6 +61,15 @@ hugo server -D
 hugo --minify --cleanDestinationDir --ignoreCache
 ```
 
+## Demo 配套资源
+
+- [评论、友链申请与邮件模板](https://liquid-stack.pages.dev/zh/p/comment-forms-email-templates/)介绍完整示例流程。
+- 公开 Demo 使用纯前端评论预览并显示示例评论，不连接评论数据库，也不会记录提交内容。
+- 主页页脚显示带说明的全站浏览量静态示意值，所有页面显示 365 天示意运行时间。正式接入后，全站浏览量由 Waline 提供。
+- 可以[打开友链申请演示](https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u)，也可以[复制 Microsoft Forms 模板](https://forms.cloud.microsoft/Pages/ShareFormPage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__bK_KBBUQ0sxMlZYNVA0OTZIQTMySkxLVjdXTVJNNS4u&sharetoken=TnsZOZAtRpQBsNnIX6GA)。
+- 申请演示仅供参考，Demo 网站不会保存填写内容或用于审核。请先复制模板，再连接自己的处理流程。
+- 已去敏的双语 HTML 邮件位于 [`examples/email-templates`](examples/email-templates/)。
+
 ## 目录说明
 
 - `hugo.yaml`：站点信息、语言、菜单、小组件和服务配置
@@ -70,6 +79,7 @@ hugo --minify --cleanDestinationDir --ignoreCache
 - `data/launchpad/`：启动台项目
 - `data/photo-wall/`：照片墙条目
 - `data/friend-links/`：友链卡片
+- `examples/email-templates/`：已去敏的读者回复与友链通过通知邮件
 - `static/img/`：可以替换的示例图片与图标
 - `themes/hugo-theme-stack/`：未经修改的官方 Stack v4.0.3
 
