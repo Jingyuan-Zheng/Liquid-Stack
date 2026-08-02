@@ -3,7 +3,7 @@
 {{- $myTime := cond $isChinese "我的时间" "My time" -}}
 {{- $comparisonLabel := cond $isChinese "你的时间和我的时间" "Your time and my time" -}}
 {{- $clockConfig := default (dict) hugo.Data.widgets.worldClock -}}
-{{- $timeZone := default "Europe/Malta" $clockConfig.timeZone -}}
+{{- $timeZone := default "UTC" $clockConfig.timeZone -}}
 
 <section
     class="widget world-clock-widget"

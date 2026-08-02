@@ -178,7 +178,7 @@ __SINGLE_LANGUAGE_COLLECTION__
             name: worldClock
             widget: object
             fields:
-              - { label: My time zone, name: timeZone, widget: string, hint: Use an IANA time zone such as Europe/Malta or Asia/Shanghai. }
+              - { label: My time zone, name: timeZone, widget: string, hint: Use an IANA time zone such as UTC or Asia/Shanghai. }
 
   # A shared vocabulary for post categories and tags. Relation fields above
   # read from these lists, so additions become selectable in every post editor.

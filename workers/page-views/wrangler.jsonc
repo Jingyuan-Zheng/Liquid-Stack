@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "liquid-stack-page-views",
-      "database_id": "e8699109-0103-4bed-8d1e-bbbe7318e3bc",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
       "migrations_dir": "migrations"
     }
   ]

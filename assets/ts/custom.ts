@@ -1276,7 +1276,7 @@ const getClockZoneOffsetMinutes = (date: Date, timeZone: string) => {
 const initWorldClocks = () => {
     document.querySelectorAll<HTMLElement>("[data-world-clock]").forEach((widget) => {
         const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
-        const myZone = widget.dataset.timeZone || "Europe/Malta";
+        const myZone = widget.dataset.timeZone || "UTC";
         const localClock = widget.querySelector<HTMLElement>('[data-clock="local"]');
         const myClock = widget.querySelector<HTMLElement>('[data-clock="mine"]');
         if (!localClock || !myClock) return;
