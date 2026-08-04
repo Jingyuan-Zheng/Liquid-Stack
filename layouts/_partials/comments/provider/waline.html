@@ -38,11 +38,11 @@
                     <div class="wl-reaction">
                         <div class="wl-reaction-title">{{ cond $isChinese "这篇文章对你有帮助吗？" "Was this article helpful?" }}</div>
                         <ul class="wl-reaction-list">
-                            <li class="wl-reaction-item"><div class="wl-reaction-img"><img src="https://unpkg.com/@waline/emojis@1.4.0/tw-emoji/1f60d.png" alt="{{ cond $isChinese "喜欢" "Love it" }}"><div class="wl-reaction-votes">6</div></div><div class="wl-reaction-text">{{ cond $isChinese "喜欢" "Love it" }}</div></li>
-                            <li class="wl-reaction-item"><div class="wl-reaction-img"><img src="https://unpkg.com/@waline/emojis@1.4.0/tw-emoji/1f602.png" alt="{{ cond $isChinese "好笑" "Funny" }}"><div class="wl-reaction-votes">2</div></div><div class="wl-reaction-text">{{ cond $isChinese "好笑" "Funny" }}</div></li>
-                            <li class="wl-reaction-item"><div class="wl-reaction-img"><img src="https://unpkg.com/@waline/emojis@1.4.0/tw-emoji/1f914.png" alt="{{ cond $isChinese "思考" "Thought-provoking" }}"><div class="wl-reaction-votes">4</div></div><div class="wl-reaction-text">{{ cond $isChinese "思考" "Thought-provoking" }}</div></li>
-                            <li class="wl-reaction-item"><div class="wl-reaction-img"><img src="https://unpkg.com/@waline/emojis@1.4.0/tw-emoji/1f62e.png" alt="{{ cond $isChinese "惊讶" "Surprising" }}"><div class="wl-reaction-votes">1</div></div><div class="wl-reaction-text">{{ cond $isChinese "惊讶" "Surprising" }}</div></li>
-                            <li class="wl-reaction-item"><div class="wl-reaction-img"><img src="https://unpkg.com/@waline/emojis@1.4.0/tw-emoji/1f622.png" alt="{{ cond $isChinese "难过" "Sad" }}"><div class="wl-reaction-votes">0</div></div><div class="wl-reaction-text">{{ cond $isChinese "难过" "Sad" }}</div></li>
+                            <li class="wl-reaction-item"><div class="wl-reaction-img" role="img" aria-label="{{ cond $isChinese "喜欢" "Love it" }}"><div class="wl-reaction-votes">6</div></div><div class="wl-reaction-text">{{ cond $isChinese "喜欢" "Love it" }}</div></li>
+                            <li class="wl-reaction-item"><div class="wl-reaction-img" role="img" aria-label="{{ cond $isChinese "好笑" "Funny" }}"><div class="wl-reaction-votes">2</div></div><div class="wl-reaction-text">{{ cond $isChinese "好笑" "Funny" }}</div></li>
+                            <li class="wl-reaction-item"><div class="wl-reaction-img" role="img" aria-label="{{ cond $isChinese "思考" "Thought-provoking" }}"><div class="wl-reaction-votes">4</div></div><div class="wl-reaction-text">{{ cond $isChinese "思考" "Thought-provoking" }}</div></li>
+                            <li class="wl-reaction-item"><div class="wl-reaction-img" role="img" aria-label="{{ cond $isChinese "惊讶" "Surprising" }}"><div class="wl-reaction-votes">1</div></div><div class="wl-reaction-text">{{ cond $isChinese "惊讶" "Surprising" }}</div></li>
+                            <li class="wl-reaction-item"><div class="wl-reaction-img" role="img" aria-label="{{ cond $isChinese "难过" "Sad" }}"><div class="wl-reaction-votes">0</div></div><div class="wl-reaction-text">{{ cond $isChinese "难过" "Sad" }}</div></li>
                         </ul>
                     </div>
                     <div class="wl-comment">
@@ -113,10 +113,9 @@
             pageview: false,
             comment: {{ default false .comment }},
             reaction: {{ default false .reaction | jsonify | safeJS }},
-            {{- with .emoji }}
-            emoji: {{ . | jsonify | safeJS }},
-            {{- end }}
+            emoji: [],
             locale: {
+                emoji: {{ cond $isChinese "表情" "Emoji" | jsonify | safeJS }},
                 reactionTitle: {{ cond $isChinese "这篇文章对你有帮助吗？" "Was this article helpful?" | jsonify | safeJS }},
                 reaction0: {{ cond $isChinese "喜欢" "Love it" | jsonify | safeJS }},
                 reaction1: {{ cond $isChinese "好笑" "Funny" | jsonify | safeJS }},
@@ -125,6 +124,150 @@
                 reaction4: {{ cond $isChinese "难过" "Sad" | jsonify | safeJS }},
             },
         });
+
+        let unicodeEmojiLoadPromise;
+        let unicodeEmojiPanel;
+        let unicodeEmojiPicker;
+        let activeEmojiButton;
+        let activeEmojiTextarea;
+
+        const unicodeEmojiDataSource = {{ cond $isChinese
+            "https://cdn.jsdelivr.net/npm/emoji-picker-element-data@1.8.0/zh/emojibase/data.json"
+            "https://cdn.jsdelivr.net/npm/emoji-picker-element-data@1.8.0/en/emojibase/data.json"
+            | jsonify | safeJS
+        }};
+
+        const loadUnicodeEmojiPicker = () => {
+            if (!unicodeEmojiLoadPromise) {
+                const pickerImport = import("https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/index.js");
+                const localeImport = {{ if $isChinese }}
+                    import("https://cdn.jsdelivr.net/npm/emoji-picker-element@1.29.1/i18n/zh_CN.js")
+                {{ else }}
+                    Promise.resolve(null)
+                {{ end }};
+
+                unicodeEmojiLoadPromise = Promise.all([pickerImport, localeImport])
+                    .then(([, localeModule]) => localeModule?.default);
+            }
+
+            return unicodeEmojiLoadPromise;
+        };
+
+        const closeUnicodeEmojiPicker = () => {
+            if (unicodeEmojiPanel) unicodeEmojiPanel.hidden = true;
+            if (activeEmojiButton) activeEmojiButton.setAttribute("aria-expanded", "false");
+            activeEmojiButton = undefined;
+            activeEmojiTextarea = undefined;
+        };
+
+        const positionUnicodeEmojiPicker = () => {
+            if (!unicodeEmojiPanel || unicodeEmojiPanel.hidden || !activeEmojiButton) return;
+
+            const buttonRect = activeEmojiButton.getBoundingClientRect();
+            const panelRect = unicodeEmojiPanel.getBoundingClientRect();
+            const edge = 12;
+            const gap = 8;
+            const maxLeft = Math.max(edge, window.innerWidth - panelRect.width - edge);
+            const left = Math.min(Math.max(edge, buttonRect.left), maxLeft);
+            const belowTop = buttonRect.bottom + gap;
+            const aboveTop = buttonRect.top - panelRect.height - gap;
+            const top = belowTop + panelRect.height <= window.innerHeight - edge
+                ? belowTop
+                : Math.max(edge, aboveTop);
+
+            unicodeEmojiPanel.style.left = `${left}px`;
+            unicodeEmojiPanel.style.top = `${Math.min(top, window.innerHeight - panelRect.height - edge)}px`;
+        };
+
+        const insertUnicodeEmoji = (event) => {
+            const emoji = event.detail?.unicode;
+            const textarea = activeEmojiTextarea;
+            if (typeof emoji !== "string" || !textarea) return;
+
+            const start = textarea.selectionStart ?? textarea.value.length;
+            const end = textarea.selectionEnd ?? start;
+            const newValue = `${textarea.value.slice(0, start)}${emoji}${textarea.value.slice(end)}`;
+            const valueSetter = Object.getOwnPropertyDescriptor(
+                HTMLTextAreaElement.prototype,
+                "value",
+            )?.set;
+
+            if (valueSetter) {
+                valueSetter.call(textarea, newValue);
+            } else {
+                textarea.value = newValue;
+            }
+
+            try {
+                textarea.dispatchEvent(new InputEvent("input", {
+                    bubbles: true,
+                    inputType: "insertText",
+                    data: emoji,
+                }));
+            } catch {
+                textarea.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+
+            textarea.focus();
+            textarea.setSelectionRange(start + emoji.length, start + emoji.length);
+        };
+
+        const createUnicodeEmojiPicker = async () => {
+            const locale = await loadUnicodeEmojiPicker();
+            if (!activeEmojiButton || !activeEmojiTextarea) return;
+
+            if (!unicodeEmojiPanel) {
+                unicodeEmojiPanel = document.createElement("div");
+                unicodeEmojiPanel.className = "waline-unicode-emoji-panel";
+                unicodeEmojiPanel.id = "waline-unicode-emoji-panel";
+                unicodeEmojiPanel.setAttribute("role", "dialog");
+                unicodeEmojiPanel.hidden = true;
+
+                unicodeEmojiPicker = document.createElement("emoji-picker");
+                unicodeEmojiPicker.locale = {{ cond $isChinese "zh" "en" | jsonify | safeJS }};
+                unicodeEmojiPicker.dataSource = unicodeEmojiDataSource;
+                {{ if $isChinese }}
+                unicodeEmojiPicker.i18n = locale;
+                {{ end }}
+                unicodeEmojiPicker.addEventListener("emoji-click", insertUnicodeEmoji);
+                unicodeEmojiPanel.append(unicodeEmojiPicker);
+                document.body.append(unicodeEmojiPanel);
+
+                document.addEventListener("click", (event) => {
+                    if (!(event.target instanceof Node)) return;
+                    if (unicodeEmojiPanel?.contains(event.target) || activeEmojiButton?.contains(event.target)) return;
+                    closeUnicodeEmojiPicker();
+                });
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") closeUnicodeEmojiPicker();
+                });
+                window.addEventListener("resize", closeUnicodeEmojiPicker);
+                window.addEventListener("scroll", closeUnicodeEmojiPicker, true);
+            }
+
+            if (!activeEmojiButton || !activeEmojiTextarea) return;
+            const isDark = document.documentElement.dataset.scheme === "dark";
+            unicodeEmojiPicker.classList.toggle("dark", isDark);
+            unicodeEmojiPicker.classList.toggle("light", !isDark);
+            unicodeEmojiPanel.hidden = false;
+            activeEmojiButton.setAttribute("aria-expanded", "true");
+            positionUnicodeEmojiPicker();
+        };
+
+        const toggleUnicodeEmojiPicker = async (button, textarea) => {
+            if (unicodeEmojiPanel && !unicodeEmojiPanel.hidden && activeEmojiButton === button) {
+                closeUnicodeEmojiPicker();
+                return;
+            }
+
+            activeEmojiButton = button;
+            activeEmojiTextarea = textarea;
+            try {
+                await createUnicodeEmojiPicker();
+            } catch {
+                closeUnicodeEmojiPicker();
+            }
+        };
 
         const walineRoot = document.querySelector("#waline-comments-root");
         const rssIconTemplate = document.querySelector("#waline-rss-icon-template");
@@ -153,9 +296,41 @@
             });
         };
 
-        if (walineRoot) {
-            new MutationObserver(enhanceWalineComments).observe(walineRoot, { childList: true, subtree: true });
+        const enhanceUnicodeEmojiButtons = () => {
+            if (!(walineRoot instanceof HTMLElement)) return;
+
+            walineRoot.querySelectorAll(".wl-comment .wl-actions button.wl-action").forEach((button) => {
+                if (!(button instanceof HTMLButtonElement)) return;
+                if (button.title !== {{ cond $isChinese "表情" "Emoji" | jsonify | safeJS }}) return;
+                if (button.dataset.unicodeEmojiBound === "true") return;
+
+                button.dataset.unicodeEmoji = "true";
+                button.dataset.unicodeEmojiBound = "true";
+                button.setAttribute("aria-haspopup", "dialog");
+                button.setAttribute("aria-expanded", "false");
+                button.setAttribute("aria-controls", "waline-unicode-emoji-panel");
+                button.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+
+                    const comment = button.closest(".wl-comment");
+                    const textarea = comment?.querySelector("textarea.wl-editor")
+                        || comment?.querySelector("textarea");
+                    if (textarea instanceof HTMLTextAreaElement) {
+                        void toggleUnicodeEmojiPicker(button, textarea);
+                    }
+                }, true);
+            });
+        };
+
+        const enhanceWaline = () => {
             enhanceWalineComments();
+            enhanceUnicodeEmojiButtons();
+        };
+
+        if (walineRoot) {
+            new MutationObserver(enhanceWaline).observe(walineRoot, { childList: true, subtree: true });
+            enhanceWaline();
         }
 
         pageviewCount({
