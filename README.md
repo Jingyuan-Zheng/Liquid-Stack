@@ -6,7 +6,7 @@ Liquid Stack v1.2.0 is a complete bilingual Hugo site starter built on the unmod
 
 ## What's new in v1.2.0
 
-- A shared mobile profile top bar with progressive scroll motion, theme and language controls, and consistent menu behaviour
+- A mobile profile top bar that keeps theme, language, and menu controls available while scrolling
 - Touch-friendly floating navigation for long About or résumé pages
 - An optional fictional product-catalog demo with bilingual data, search, filtering, sorting, collapsible groups, and mobile cards
 - Baseline Web App support with install icons, a manifest, standalone metadata, and light/dark browser theme colours
@@ -18,6 +18,8 @@ Read the bilingual [Liquid Stack 1.2.0 release note](https://liquid-stack.pages.
 ## Screenshots
 
 ![Liquid Stack homepage](project-site/images/screenshots/home-light-en.png)
+
+![Shared mobile profile bar](project-site/images/screenshots/mobile-profile-bar.png)
 
 | Homepage announcement | Expanded announcement |
 | --- | --- |

@@ -1941,20 +1941,28 @@ const initProductCatalog = () => {
     document.querySelectorAll<HTMLElement>("[data-product-catalog]").forEach((root) => {
         const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>("[data-product-row]"));
         const search = root.querySelector<HTMLInputElement>("[data-product-search]");
-        const filter = root.querySelector<HTMLSelectElement>("[data-product-filter]");
+        const filterTrigger = root.querySelector<HTMLButtonElement>("[data-product-filter-trigger]");
+        const filterPanel = root.querySelector<HTMLElement>("[data-product-filter-panel]");
+        const filterInputs = Array.from(root.querySelectorAll<HTMLInputElement>("[name^='product-']"));
         const empty = root.querySelector<HTMLElement>("[data-product-empty]");
 
         const refresh = () => {
             const query = (search?.value || "").trim().toLocaleLowerCase();
-            const status = filter?.value || "all";
+            const selected = new Map<string, string>();
+            filterInputs.forEach((input) => { if (input.checked) selected.set(input.name, input.value); });
             let visible = 0;
 
             rows.forEach((row) => {
-                const statusMatches = status === "all" ||
-                    (status === "open" && row.dataset.openSource !== "no") ||
-                    (status === "free" && row.dataset.pricing === "free") ||
-                    (status === "paid" && row.dataset.pricing === "paid");
-                const matches = statusMatches && (!query || (row.dataset.search || "").includes(query));
+                const matchesFilters = [
+                    ["product-category", row.dataset.category],
+                    ["product-open-source", row.dataset.openSource],
+                    ["product-pricing", row.dataset.pricing],
+                    ["product-source", row.dataset.source],
+                ].every(([key, value]) => {
+                    const chosen = selected.get(key);
+                    return !chosen || chosen === "all" || chosen === value;
+                });
+                const matches = matchesFilters && (!query || (row.dataset.search || "").includes(query));
                 row.hidden = !matches;
                 if (matches) visible += 1;
             });
@@ -1970,7 +1978,16 @@ const initProductCatalog = () => {
 
         root.querySelector<HTMLFormElement>("[data-product-search-form]")?.addEventListener("submit", (event) => event.preventDefault());
         search?.addEventListener("input", refresh);
-        filter?.addEventListener("change", refresh);
+        filterInputs.forEach((input) => input.addEventListener("change", refresh));
+        filterTrigger?.addEventListener("click", () => {
+            const opening = filterPanel?.hasAttribute("hidden") ?? true;
+            filterPanel?.toggleAttribute("hidden", !opening);
+            filterTrigger.setAttribute("aria-expanded", String(opening));
+        });
+        root.querySelector<HTMLButtonElement>("[data-product-filter-reset]")?.addEventListener("click", () => {
+            filterInputs.forEach((input) => { input.checked = input.value === "all"; });
+            refresh();
+        });
 
         root.querySelectorAll<HTMLTableElement>("[data-product-table]").forEach((table) => {
             table.querySelectorAll<HTMLTableCellElement>("th[data-product-sort]").forEach((header, column) => {

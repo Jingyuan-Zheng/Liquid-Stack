@@ -12,9 +12,11 @@ Liquid Stack 1.2.0 improves mobile navigation and adds several reusable, optiona
 
 ## Shared mobile profile bar
 
-Content pages now use the same progressive mobile profile-bar behaviour. As the profile area reaches the top of the viewport, the avatar and site title contract into a fixed bar while theme, language, and menu controls remain available.
+Content pages now include a mobile profile bar. As you scroll, the avatar and site title move into a fixed bar at the top of the screen, with theme, language, and menu controls still available.
 
-The transition follows scroll progress instead of switching between two disconnected layouts. Search pages activate the fixed bar only after results make the page long enough to scroll, and keep the search field available beneath it.
+On search pages, the bar appears once search results make the page scrollable, and the search field remains available beneath it.
+
+![Shared mobile profile bar](/img/liquid-stack-1-2-0/mobile-profile-bar.png)
 
 ## Touch-friendly floating navigation
 
@@ -59,10 +61,6 @@ writingMode: aigc-assisted
 ```
 
 The article footer and Sveltia CMS expose the matching bilingual label. Omitting the field preserves the previous article presentation.
-
-## Launchpad sample update
-
-The project launchpad now includes an Icon Finder entry to demonstrate another application-style icon, preview image, article link, and repository link. Launchpad records remain independent YAML files under `data/launchpad/`, so projects can be added or removed without editing the page template.
 
 ## Compatibility
 

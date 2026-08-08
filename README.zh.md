@@ -6,7 +6,7 @@ Liquid Stack v1.2.0 是一套基于原版 [Hugo Theme Stack](https://github.com/
 
 ## v1.2.0 更新内容
 
-- 加入全站共用的手机个人信息顶栏，支持随滚动渐进收缩、深浅色切换、语言切换与统一菜单交互
+- 加入手机个人信息顶栏，滚动时仍可使用深浅色切换、语言切换和菜单入口
 - 为较长的关于页面或简历页面加入适合触控操作的浮动导航
 - 加入可选的虚拟产品目录 Demo，提供双语数据、搜索、筛选、排序、分类折叠与手机卡片布局
 - 加入 Web App 基础支持，包括安装图标、Manifest、独立窗口元数据与浏览器明暗主题色
@@ -18,6 +18,8 @@ Liquid Stack v1.2.0 是一套基于原版 [Hugo Theme Stack](https://github.com/
 ## 界面截图
 
 ![Liquid Stack 主页](project-site/images/screenshots/home-light-en.png)
+
+![统一的手机个人信息顶栏](project-site/images/screenshots/mobile-profile-bar.png)
 
 | 首页公告 | 展开的公告 |
 | --- | --- |
