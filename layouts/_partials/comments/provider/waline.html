@@ -1,6 +1,7 @@
 {{- with .Site.Params.comments.waline -}}
     {{- $isChinese := hasPrefix $.Language.Lang "zh" -}}
     {{- $demoMode := default false .demoMode -}}
+    {{- $secureUploads := default dict .secureUploads -}}
     {{- $serverResolver := resources.Get "js/waline-server.js" | minify | fingerprint -}}
     <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
     <section class="waline-container">
@@ -105,6 +106,130 @@
             timeoutMs: {{ default 2500 .serverProbeTimeout }},
         });
 
+        const secureUploadsEnabled = {{ default false $secureUploads.enabled | jsonify | safeJS }};
+        const secureMessages = {
+            invalid: {{ cond $isChinese "无法读取所选图片。" "The selected image could not be read." | jsonify | safeJS }},
+            type: {{ cond $isChinese "仅支持 JPEG、PNG、WebP 和 GIF 图片。" "Only JPEG, PNG, WebP and GIF images are supported." | jsonify | safeJS }},
+            size: {{ cond $isChinese "图片不能超过 3 MB。" "The image must not exceed 3 MB." | jsonify | safeJS }},
+            verify: {{ cond $isChinese "安全验证暂时不可用。" "Security verification is temporarily unavailable." | jsonify | safeJS }},
+            upload: {{ cond $isChinese "图片上传失败，请稍后重试。" "Image upload failed. Please try again later." | jsonify | safeJS }},
+        };
+        const secureBaseURL = String(serverURL).replace(/\/+$/, "");
+        const secureConfig = {
+            turnstileSiteKey: {{ default "" $secureUploads.turnstileSiteKey | jsonify | safeJS }},
+            uploadEndpoint: {{ default "" $secureUploads.uploadEndpoint | jsonify | safeJS }} || `${secureBaseURL}/api/upload-image`,
+            uploadSessionEndpoint: {{ default "" $secureUploads.uploadSessionEndpoint | jsonify | safeJS }} || `${secureBaseURL}/api/upload-session`,
+            commentEndpoint: {{ default "" $secureUploads.commentEndpoint | jsonify | safeJS }} || `${secureBaseURL}/api/comment`,
+            commentContextEndpoint: {{ default "" $secureUploads.commentContextEndpoint | jsonify | safeJS }} || `${secureBaseURL}/api/comment-context`,
+        };
+        let turnstileLoadPromise;
+        let turnstileWidgetId;
+        let turnstileContainer;
+
+        const loadTurnstile = () => {
+            if (!secureConfig.turnstileSiteKey) return Promise.reject(new Error(secureMessages.verify));
+            if (window.turnstile) return Promise.resolve(window.turnstile);
+            if (!turnstileLoadPromise) {
+                turnstileLoadPromise = new Promise((resolve, reject) => {
+                    const script = document.createElement("script");
+                    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+                    script.dataset.walineTurnstile = "true";
+                    script.addEventListener("load", () => window.turnstile ? resolve(window.turnstile) : reject(new Error(secureMessages.verify)), { once: true });
+                    script.addEventListener("error", () => reject(new Error(secureMessages.verify)), { once: true });
+                    document.head.append(script);
+                });
+            }
+            return turnstileLoadPromise;
+        };
+
+        const getTurnstileToken = async (action) => {
+            const turnstile = await loadTurnstile();
+            if (!turnstileContainer) {
+                turnstileContainer = document.createElement("div");
+                turnstileContainer.dataset.walineTurnstile = "true";
+                turnstileContainer.style.cssText = "position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2147483647;padding:12px;border-radius:16px;background:var(--card-background,#fff);box-shadow:0 16px 48px rgba(0,0,0,.24)";
+                document.body.append(turnstileContainer);
+            }
+            return new Promise((resolve, reject) => {
+                const finish = (value, error) => {
+                    if (turnstileContainer) turnstileContainer.style.display = "none";
+                    if (error) reject(error); else resolve(value);
+                };
+                turnstileContainer.style.display = "block";
+                if (turnstileWidgetId !== undefined) turnstile.remove(turnstileWidgetId);
+                turnstileWidgetId = turnstile.render(turnstileContainer, {
+                    sitekey: secureConfig.turnstileSiteKey,
+                    action,
+                    execution: "execute",
+                    appearance: "interaction-only",
+                    theme: document.documentElement.dataset.scheme === "dark" ? "dark" : "light",
+                    callback: (token) => finish(token),
+                    "error-callback": () => finish(undefined, new Error(secureMessages.verify)),
+                    "expired-callback": () => finish(undefined, new Error(secureMessages.verify)),
+                });
+                turnstile.execute(turnstileWidgetId, { action });
+                window.setTimeout(() => finish(undefined, new Error(secureMessages.verify)), 15000);
+            });
+        };
+
+        const secureImageUploader = async (file) => {
+            const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+            if (!(file instanceof File)) throw new Error(secureMessages.invalid);
+            if (!allowedTypes.has(file.type)) throw new Error(secureMessages.type);
+            if (!file.size || file.size > 3 * 1024 * 1024) throw new Error(secureMessages.size);
+
+            const verification = await getTurnstileToken("waline_image_upload");
+            const sessionResponse = await fetch(secureConfig.uploadSessionEndpoint, {
+                method: "POST",
+                headers: { "X-Turnstile-Token": verification },
+                credentials: "omit",
+                cache: "no-store",
+            });
+            const session = await sessionResponse.json().catch(() => ({}));
+            if (!sessionResponse.ok || typeof session.sessionToken !== "string") throw new Error(secureMessages.upload);
+
+            const uploadResponse = await fetch(secureConfig.uploadEndpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/octet-stream",
+                    "X-Image-Type": file.type,
+                    "X-Upload-Session": session.sessionToken,
+                },
+                body: file,
+                credentials: "omit",
+                cache: "no-store",
+            });
+            const uploaded = await uploadResponse.json().catch(() => ({}));
+            if (!uploadResponse.ok || typeof uploaded.url !== "string" || !uploaded.url.startsWith("https://")) throw new Error(secureMessages.upload);
+            return uploaded.url;
+        };
+
+        if (secureUploadsEnabled) {
+            const nativeFetch = window.fetch.bind(window);
+            window.fetch = async (input, requestInit) => {
+                const requestURL = typeof input === "string" ? input : input?.url;
+                const requestMethod = String(requestInit?.method || input?.method || "GET").toUpperCase();
+                if (requestMethod === "POST" && requestURL === secureConfig.commentEndpoint) {
+                    const payload = JSON.parse(requestInit?.body || "{}");
+                    payload.turnstile = await getTurnstileToken("waline_comment");
+                    payload.clientTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+                    try {
+                        const contextResponse = await nativeFetch(secureConfig.commentContextEndpoint, { credentials: "omit", cache: "no-store" });
+                        if (contextResponse.ok) {
+                            const context = await contextResponse.json();
+                            payload.ipTimezone = context.timezone || "";
+                            payload.ipTimezoneProof = context.proof || "";
+                            payload.ipTimezoneExpiresAt = Number(context.expiresAt || 0);
+                        }
+                    } catch {
+                        // The backend can require Turnstile when context proof is unavailable.
+                    }
+                    return nativeFetch(input, { ...requestInit, body: JSON.stringify(payload) });
+                }
+                return nativeFetch(input, requestInit);
+            };
+        }
+
         init({
             el: "#waline-comments-root",
             serverURL,
@@ -113,6 +238,7 @@
             pageview: false,
             comment: {{ default false .comment }},
             reaction: {{ default false .reaction | jsonify | safeJS }},
+            imageUploader: secureUploadsEnabled ? secureImageUploader : undefined,
             emoji: [],
             locale: {
                 emoji: {{ cond $isChinese "表情" "Emoji" | jsonify | safeJS }},

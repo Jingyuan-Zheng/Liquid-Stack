@@ -1722,6 +1722,281 @@ const initRocketGestures = () => {
     });
 };
 
+const initMobileProfileBar = () => {
+    if (document.body.classList.contains("home-profile-layout") || document.body.classList.contains("template-search")) return;
+
+    const header = document.querySelector<HTMLElement>(".left-sidebar > header");
+    if (!header || header.dataset.mobileProfileReady === "true") return;
+    header.dataset.mobileProfileReady = "true";
+
+    const avatar = header.querySelector<HTMLElement>(".site-avatar");
+    const emoji = avatar?.querySelector<HTMLElement>(".emoji");
+    const description = header.querySelector<HTMLElement>(".site-description");
+    const social = header.parentElement?.querySelector<HTMLElement>(".menu-social");
+    const exitPoint = (avatar?.getBoundingClientRect().top || header.getBoundingClientRect().top) + window.scrollY;
+    const initialAvatarSize = avatar?.getBoundingClientRect().width || 100;
+    const initialEmojiSize = emoji?.getBoundingClientRect().width || 40;
+    const initialHeaderHeight = header.getBoundingClientRect().height;
+    const initialSocialHeight = social?.getBoundingClientRect().height || 0;
+    const descriptionEnd = (description?.getBoundingClientRect().bottom || 0) + window.scrollY;
+    const socialEnd = (social?.getBoundingClientRect().bottom || 0) + window.scrollY;
+
+    const update = () => {
+        const isMobile = window.matchMedia("(max-width: 760px)").matches;
+        const fixed = isMobile && window.scrollY >= exitPoint;
+        const progress = fixed ? Math.min(1, Math.max(0, (window.scrollY - exitPoint) / 140)) : 0;
+        const descriptionProgress = Math.min(1, Math.max(0, (window.scrollY - (descriptionEnd - 120)) / 120));
+        const socialProgress = Math.min(1, Math.max(0, (window.scrollY - (socialEnd - 120)) / 120));
+        const avatarSize = initialAvatarSize - ((initialAvatarSize - 42) * progress);
+        const emojiSize = initialEmojiSize - ((initialEmojiSize - 18) * progress);
+
+        document.body.style.setProperty("--mobile-profile-progress", progress.toFixed(3));
+        document.body.style.setProperty("--mobile-profile-chrome-progress", Math.min(1, Math.max(0, (progress - 0.72) / 0.28)).toFixed(3));
+        document.body.style.setProperty("--mobile-profile-content-progress", descriptionProgress.toFixed(3));
+        document.body.style.setProperty("--mobile-profile-social-progress", socialProgress.toFixed(3));
+        document.body.style.setProperty("--mobile-profile-flow-height", `${initialHeaderHeight}px`);
+        document.body.style.setProperty("--mobile-profile-avatar-size", `${avatarSize}px`);
+        document.body.style.setProperty("--mobile-profile-emoji-size", `${emojiSize}px`);
+        document.body.style.setProperty("--mobile-profile-header-height", `${Math.max(62, avatarSize + 16)}px`);
+        social?.style.setProperty("--mobile-profile-social-height", `${initialSocialHeight * (1 - socialProgress)}px`);
+        document.body.classList.toggle("mobile-profile-fixed", fixed);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+};
+
+const initSearchMobileProfileBar = () => {
+    if (!document.body.classList.contains("template-search")) return;
+
+    const header = document.querySelector<HTMLElement>(".left-sidebar > header");
+    const form = document.querySelector<HTMLElement>(".search-form:not(.widget)");
+    const result = document.querySelector<HTMLElement>(".search-result");
+    const resultList = result?.querySelector<HTMLElement>(".search-result--list");
+    const avatar = header?.querySelector<HTMLElement>(".site-avatar");
+    if (!header || !form || !result || !resultList || !avatar) return;
+
+    const exitPoint = avatar.getBoundingClientRect().top + window.scrollY;
+    const initialAvatarSize = avatar.getBoundingClientRect().width;
+    const emoji = avatar.querySelector<HTMLElement>(".emoji");
+    const initialEmojiSize = emoji?.getBoundingClientRect().width || 40;
+    const initialHeaderHeight = header.getBoundingClientRect().height;
+
+    const update = () => {
+        const hasResults = !result.classList.contains("hidden") && resultList.children.length > 0;
+        const fixed = window.matchMedia("(max-width: 760px)").matches && hasResults && window.scrollY >= exitPoint;
+        const progress = fixed ? Math.min(1, Math.max(0, (window.scrollY - exitPoint) / 140)) : 0;
+        const avatarSize = initialAvatarSize - ((initialAvatarSize - 42) * progress);
+
+        document.body.style.setProperty("--mobile-profile-progress", progress.toFixed(3));
+        document.body.style.setProperty("--mobile-profile-chrome-progress", progress.toFixed(3));
+        document.body.style.setProperty("--mobile-profile-flow-height", `${initialHeaderHeight}px`);
+        document.body.style.setProperty("--mobile-profile-avatar-size", `${avatarSize}px`);
+        document.body.style.setProperty("--mobile-profile-emoji-size", `${initialEmojiSize - ((initialEmojiSize - 18) * progress)}px`);
+        document.body.style.setProperty("--mobile-profile-header-height", `${Math.max(62, initialHeaderHeight - ((initialHeaderHeight - 62) * progress))}px`);
+        document.body.classList.toggle("mobile-profile-fixed", fixed);
+        document.body.classList.toggle("search-profile-fixed", fixed);
+    };
+
+    new MutationObserver(update).observe(result, { attributes: true, childList: true, subtree: true });
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+};
+
+const initHomeMobileProfileBar = () => {
+    if (!document.body.classList.contains("home-profile-layout")) return;
+
+    const profile = document.querySelector<HTMLElement>(".home-profile");
+    const avatar = profile?.querySelector<HTMLElement>(".home-profile__avatar");
+    const copy = profile?.querySelector<HTMLElement>(".home-profile__copy");
+    const social = profile?.querySelector<HTMLElement>(".home-profile__social");
+    if (!profile || !avatar || profile.dataset.mobileProfileReady === "true") return;
+    profile.dataset.mobileProfileReady = "true";
+
+    const mask = document.createElement("div");
+    mask.className = "home-profile-fixed-mask";
+    document.body.appendChild(mask);
+
+    avatar.addEventListener("click", (event) => {
+        if (!document.body.classList.contains("home-profile-fixed")) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, true);
+
+    const initialAvatarSize = avatar.getBoundingClientRect().width;
+    const emoji = avatar.querySelector<HTMLElement>(".home-profile__emoji");
+    const initialEmojiSize = emoji?.getBoundingClientRect().width || 54;
+    const exitPoint = avatar.getBoundingClientRect().top + window.scrollY;
+    const initialHeight = profile.getBoundingClientRect().height;
+    const initialAvatarLeft = avatar.getBoundingClientRect().left;
+    const profileRect = profile.getBoundingClientRect();
+    const copyRect = copy?.getBoundingClientRect();
+    const socialRect = social?.getBoundingClientRect();
+    const title = copy?.querySelector<HTMLElement>("h1");
+    const greeting = copy?.querySelector<HTMLElement>(".home-profile__greeting");
+    const subtitle = copy?.querySelector<HTMLElement>(".home-profile__subtitle");
+    const initialCopyLeft = copyRect?.left || 0;
+    const initialCopyWidth = copyRect?.width || window.innerWidth - 32;
+    const initialTitleTop = (title?.getBoundingClientRect().top || 0) + window.scrollY - exitPoint;
+    const initialGreetingTop = (greeting?.getBoundingClientRect().top || 0) + window.scrollY - exitPoint;
+    const initialSubtitleTop = (subtitle?.getBoundingClientRect().top || 0) + window.scrollY - exitPoint;
+    const initialSocialTop = (socialRect?.top || 0) - profileRect.top;
+    const copyFadeEnd = (copyRect?.bottom || 0) + window.scrollY;
+    const socialFadeEnd = (socialRect?.bottom || 0) + window.scrollY;
+
+    const update = () => {
+        const isMobile = window.matchMedia("(max-width: 760px)").matches;
+        const fixed = isMobile && window.scrollY >= exitPoint;
+        const progress = fixed ? Math.min(1, Math.max(0, (window.scrollY - exitPoint) / 220)) : 0;
+        const copyProgress = Math.min(1, Math.max(0, (window.scrollY - (copyFadeEnd - 160)) / 160));
+        const socialProgress = Math.min(1, Math.max(0, (window.scrollY - (socialFadeEnd - 160)) / 160));
+        const currentAvatarSize = initialAvatarSize - ((initialAvatarSize - 42) * progress);
+        const currentEmojiSize = initialEmojiSize - ((initialEmojiSize - 18) * progress);
+        const headerHeight = Math.max(62, currentAvatarSize + 16);
+        const avatarLeft = initialAvatarLeft + ((16 - initialAvatarLeft) * progress);
+        const finalCopyLeft = 16 + currentAvatarSize + 10;
+        const finalTitleTop = Math.max(0, (62 - 18.4) / 2);
+        const copyLeft = initialCopyLeft + ((finalCopyLeft - initialCopyLeft) * progress);
+        const copyWidth = initialCopyWidth + ((Math.max(120, window.innerWidth - finalCopyLeft - 16) - initialCopyWidth) * progress);
+
+        document.body.style.setProperty("--mobile-profile-progress", progress.toFixed(3));
+        document.body.style.setProperty("--mobile-profile-chrome-progress", Math.min(1, Math.max(0, (progress - 0.72) / 0.28)).toFixed(3));
+        document.body.style.setProperty("--home-profile-content-progress", Math.max(copyProgress, progress).toFixed(3));
+        document.body.style.setProperty("--mobile-profile-social-progress", Math.max(socialProgress, fixed ? Math.min(1, progress / 0.18) : 0).toFixed(3));
+        document.body.style.setProperty("--mobile-profile-header-height", `${headerHeight}px`);
+        document.body.style.setProperty("--mobile-profile-avatar-size", `${currentAvatarSize}px`);
+        document.body.style.setProperty("--mobile-profile-emoji-size", `${currentEmojiSize}px`);
+        document.body.style.setProperty("--home-profile-flow-height", `${initialHeight}px`);
+        document.body.style.setProperty("--home-profile-avatar-left", `${avatarLeft}px`);
+        document.body.style.setProperty("--home-profile-copy-left", `${copyLeft}px`);
+        document.body.style.setProperty("--home-profile-copy-width", `${copyWidth}px`);
+        document.body.style.setProperty("--home-profile-title-top", `${initialTitleTop + ((finalTitleTop - initialTitleTop) * progress)}px`);
+        document.body.style.setProperty("--home-profile-title-size", `${3 - (1.4 * progress)}rem`);
+        document.body.style.setProperty("--home-profile-greeting-top", `${initialGreetingTop - (24 * progress)}px`);
+        document.body.style.setProperty("--home-profile-subtitle-top", `${initialSubtitleTop - (24 * progress)}px`);
+        document.body.style.setProperty("--home-profile-social-flow-top", `${initialSocialTop}px`);
+        document.body.classList.toggle("home-profile-fixed", fixed);
+        document.body.classList.toggle("mobile-profile-fixed", fixed);
+        mask.classList.toggle("is-active", fixed);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+};
+
+const initMobileProfileMenu = () => {
+    const toggle = document.getElementById("toggle-menu");
+    const menu = document.getElementById("main-menu");
+    if (!toggle || !menu) return;
+
+    const sync = () => {
+        const height = window.matchMedia("(max-width: 760px)").matches && document.body.classList.contains("mobile-profile-fixed") && document.body.classList.contains("show-menu")
+            ? menu.getBoundingClientRect().height
+            : 0;
+        document.body.style.setProperty("--mobile-menu-height", `${height}px`);
+    };
+    toggle.addEventListener("click", () => {
+        window.requestAnimationFrame(sync);
+        window.setTimeout(sync, 320);
+    });
+    window.addEventListener("resize", sync);
+};
+
+const initMobileProfileControls = () => {
+    document.querySelector<HTMLButtonElement>("[data-mobile-scheme-toggle]")?.addEventListener("click", () => {
+        document.getElementById("dark-mode-toggle")?.click();
+    });
+    document.querySelector<HTMLButtonElement>("[data-mobile-language-toggle]")?.addEventListener("click", () => {
+        const select = document.querySelector<HTMLSelectElement>("#i18n-switch select");
+        if (!select || select.options.length < 2) return;
+        select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+};
+
+const initCvFloatingNav = () => {
+    document.querySelectorAll<HTMLElement>(".cv-floating-nav").forEach((nav) => {
+        const trigger = nav.querySelector<HTMLButtonElement>(".cv-floating-trigger");
+        if (!trigger || nav.dataset.cvFloatingReady === "true") return;
+        nav.dataset.cvFloatingReady = "true";
+
+        const setOpen = (open: boolean) => {
+            nav.classList.toggle("is-open", open);
+            trigger.setAttribute("aria-expanded", String(open));
+        };
+
+        trigger.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+        nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+        document.addEventListener("click", (event) => {
+            if (event.target instanceof Node && !nav.contains(event.target)) setOpen(false);
+        });
+    });
+};
+
+const initProductCatalog = () => {
+    document.querySelectorAll<HTMLElement>("[data-product-catalog]").forEach((root) => {
+        const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>("[data-product-row]"));
+        const search = root.querySelector<HTMLInputElement>("[data-product-search]");
+        const filter = root.querySelector<HTMLSelectElement>("[data-product-filter]");
+        const empty = root.querySelector<HTMLElement>("[data-product-empty]");
+
+        const refresh = () => {
+            const query = (search?.value || "").trim().toLocaleLowerCase();
+            const status = filter?.value || "all";
+            let visible = 0;
+
+            rows.forEach((row) => {
+                const statusMatches = status === "all" ||
+                    (status === "open" && row.dataset.openSource !== "no") ||
+                    (status === "free" && row.dataset.pricing === "free") ||
+                    (status === "paid" && row.dataset.pricing === "paid");
+                const matches = statusMatches && (!query || (row.dataset.search || "").includes(query));
+                row.hidden = !matches;
+                if (matches) visible += 1;
+            });
+
+            root.querySelectorAll<HTMLDetailsElement>("[data-product-group]").forEach((group) => {
+                const count = Array.from(group.querySelectorAll<HTMLTableRowElement>("[data-product-row]")).filter((row) => !row.hidden).length;
+                group.hidden = count === 0;
+                const label = group.querySelector<HTMLElement>("[data-product-count]");
+                if (label) label.textContent = `${count} ${document.documentElement.lang.startsWith("zh") ? "项" : "items"}`;
+            });
+            if (empty) empty.hidden = visible !== 0;
+        };
+
+        root.querySelector<HTMLFormElement>("[data-product-search-form]")?.addEventListener("submit", (event) => event.preventDefault());
+        search?.addEventListener("input", refresh);
+        filter?.addEventListener("change", refresh);
+
+        root.querySelectorAll<HTMLTableElement>("[data-product-table]").forEach((table) => {
+            table.querySelectorAll<HTMLTableCellElement>("th[data-product-sort]").forEach((header, column) => {
+                header.tabIndex = 0;
+                header.setAttribute("aria-sort", "none");
+                const sort = () => {
+                    const direction = header.getAttribute("aria-sort") === "ascending" ? "descending" : "ascending";
+                    table.querySelectorAll("th[data-product-sort]").forEach((item) => item.setAttribute("aria-sort", item === header ? direction : "none"));
+                    const body = table.tBodies[0];
+                    if (!body) return;
+                    Array.from(body.rows)
+                        .sort((a, b) => (a.cells[column]?.dataset.sortValue || "").localeCompare(b.cells[column]?.dataset.sortValue || "") * (direction === "ascending" ? 1 : -1))
+                        .forEach((row) => body.appendChild(row));
+                };
+                header.addEventListener("click", sort);
+                header.addEventListener("keydown", (event) => {
+                    if (event.key !== "Enter" && event.key !== " ") return;
+                    event.preventDefault();
+                    sort();
+                });
+            });
+        });
+        refresh();
+    });
+};
+
 const initCustomScripts = () => {
     initSiteLanguageExperience();
     initLocalizedArticleDates();
@@ -1738,6 +2013,13 @@ const initCustomScripts = () => {
     initDashboardAdminGesture();
     initSidebarManagementMenu();
     initRocketGestures();
+    initMobileProfileBar();
+    initSearchMobileProfileBar();
+    initHomeMobileProfileBar();
+    initMobileProfileMenu();
+    initMobileProfileControls();
+    initCvFloatingNav();
+    initProductCatalog();
 };
 
 if (document.readyState === "loading") {

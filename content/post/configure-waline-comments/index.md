@@ -17,6 +17,12 @@ Deploy your own service by following the official Waline documentation. When you
 
 Set `params.comments.enabled` to `true` to enable comments. Individual posts can still use `comments: false`, which is useful for privacy pages, documentation, or announcements.
 
+## Optional secure uploads and verification
+
+`params.comments.waline.secureUploads` is disabled by default. It is an integration example for a Waline-compatible backend that provides `/api/upload-session`, `/api/upload-image`, `/api/comment-context`, and a comment endpoint accepting a Turnstile token. Add your public Cloudflare Turnstile site key, implement the matching server-side verification and limits, then enable the option. The browser validates JPEG, PNG, WebP, and GIF files up to 3 MB, but the server must repeat every validation and enforce origin, rate, session, and storage limits.
+
+Never put the Turnstile secret key or storage credentials in Hugo configuration. The theme only contains public frontend configuration; see `docs/waline-secure-uploads.md` for the endpoint contract.
+
 ## Test before release
 
 Check that the comment box appears below a post locally, then test submission, moderation, and notifications after deployment. Keep server URLs, tokens, and administrator settings in your own environment rather than in a public theme example.

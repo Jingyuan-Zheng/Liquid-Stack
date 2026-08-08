@@ -96,6 +96,14 @@ __SINGLE_LANGUAGE_LOADERS__
         display_fields: ['{{tags.*.name}}']
         search_fields: ['{{tags.*.name}}']
         i18n: true
+      - label: Writing mode
+        name: writingMode
+        widget: select
+        required: false
+        options:
+          - { label: Written by the author, value: human }
+          - { label: AI-assisted writing, value: aigc-assisted }
+        i18n: duplicate
       - label: Article
         name: body
         widget: markdown

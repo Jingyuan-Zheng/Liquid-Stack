@@ -2,7 +2,18 @@
 
 [English](README.md) · [主题 Demo](https://liquid-stack.pages.dev/zh/) · [真实站点演示](https://jingyuan-zheng.github.io/) · [使用此模板](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
 
-Liquid Stack v1.1.0 是一套基于原版 [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3 的完整双语 Hugo 站点模板。它保留 Stack 的博客基础，并加入个人主页式首页、启动台、可交互照片墙、内容仪表盘、Sveltia CMS、Waline 扩展、友链申请流程、双语站点地图和可直接替换的示例内容。
+Liquid Stack v1.2.0 是一套基于原版 [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3 的完整双语 Hugo 站点模板。它保留 Stack 的博客基础，并加入个人主页式首页、启动台、可交互照片墙、内容仪表盘、Sveltia CMS、Waline 扩展、友链申请流程、双语站点地图和可直接替换的示例内容。
+
+## v1.2.0 更新内容
+
+- 加入全站共用的手机个人信息顶栏，支持随滚动渐进收缩、深浅色切换、语言切换与统一菜单交互
+- 为较长的关于页面或简历页面加入适合触控操作的浮动导航
+- 加入可选的虚拟产品目录 Demo，提供双语数据、搜索、筛选、排序、分类折叠与手机卡片布局
+- 加入 Web App 基础支持，包括安装图标、Manifest、独立窗口元数据与浏览器明暗主题色
+- 加入可选的 Waline 安全上传与评论验证接口，默认关闭，配置兼容后端后才启用
+- 加入可选的人工撰写与 AIGC 辅助文章标识，并提供 CMS 选择项和双语示例
+
+面向使用者的更新说明见双语文章 [Liquid Stack 1.2.0](https://liquid-stack.pages.dev/zh/p/liquid-stack-1-2-0/)，完整实现与检查记录见 [`docs/feature-port-checklist.md`](docs/feature-port-checklist.md)。
 
 ## 界面截图
 
@@ -35,6 +46,7 @@ Liquid Stack v1.1.0 是一套基于原版 [Hugo Theme Stack](https://github.com/
 - 为文章卡片、主页组件、面板、控件和角标建立统一的圆角层级
 - 使用 Lucide 轻量线性图标统一功能入口与导航
 - 使用浅灰紫与中性色作为主要配色，以少量功能色帮助识别状态
+- 提供安装图标、独立窗口与浏览器主题色等 Web App 基础元数据（不包含离线缓存）
 
 ### 主页组件
 
@@ -54,6 +66,8 @@ Liquid Stack v1.1.0 是一套基于原版 [Hugo Theme Stack](https://github.com/
 - 通过数据文件管理图标、预览图、文章和仓库链接的项目启动台
 - 支持横图、竖图、拖动排列、聚焦查看和浏览器位置记忆的照片墙
 - 带进入动画、时间线和浮动菜单的关于页面，可用于个人介绍、网站故事、作品经历或简历
+- 使用少量虚拟数据演示搜索、排序、筛选与响应式表格的可选产品目录
+- 可选的文章写作标识，区分人工撰写与 AIGC 辅助
 
 ### 管理与互动
 
@@ -106,8 +120,10 @@ hugo --minify --cleanDestinationDir --ignoreCache
 - `data/launchpad/`：启动台项目
 - `data/photo-wall/`：照片墙条目
 - `data/friend-links/`：友链卡片
+- `data/product-catalog.yaml`：可选的虚拟产品目录记录
 - `examples/email-templates/`：已去敏的读者回复与友链通过通知邮件
 - `static/img/`：可以替换的示例图片与图标
+- `docs/waline-secure-uploads.md`：可选安全上传后端接口说明
 - `themes/hugo-theme-stack/`：未经修改的官方 Stack v4.0.3
 
 官方 Stack 主题文件保持原样，Liquid Stack 的站点功能通过项目根目录扩展。完整说明见[欢迎使用 Liquid Stack：主题新增功能](https://liquid-stack.pages.dev/zh/p/welcome-to-liquid-stack/)。

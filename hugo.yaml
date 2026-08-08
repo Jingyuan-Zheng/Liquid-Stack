@@ -34,7 +34,7 @@ permalinks:
   post: /p/:slug/
   page: /:slug/
 params:
-  version: "1.1.0"
+  version: "1.2.0"
   mainSections: [post]
   favicon: /img/liquid-stack/logo-transparent.png
   dateFormat:
@@ -60,6 +60,13 @@ params:
     waline:
       serverURL: https://example.com/waline
       demoMode: true
+      secureUploads:
+        enabled: false
+        turnstileSiteKey: ""
+        uploadEndpoint: ""
+        uploadSessionEndpoint: ""
+        commentEndpoint: ""
+        commentContextEndpoint: ""
       reaction:
         - "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
         - "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="

@@ -6,6 +6,7 @@ slug: designing-for-two-languages
 image: /img/posts/bilingual-publishing.png
 categories: [示例文章]
 tags: [本地化, Hugo]
+writingMode: aigc-assisted
 ---
 
 将不同语言版本放进同一个页面包，能让译文更易于校对，也能复用图片，并让 Hugo 自动提供语言切换。

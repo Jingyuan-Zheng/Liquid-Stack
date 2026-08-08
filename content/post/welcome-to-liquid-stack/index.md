@@ -2,10 +2,11 @@
 title: "Welcome to Liquid Stack: New Theme Features"
 description: "A complete guide to starting with Liquid Stack and exploring its visual system, homepage widgets, content presentation, management tools, and bilingual experience."
 date: 2026-08-02T19:40:00+02:00
-lastmod: 2026-08-02T19:40:00+02:00
+lastmod: 2026-08-08T16:00:00+02:00
 slug: welcome-to-liquid-stack
 categories: [Tutorials]
 tags: [Liquid Stack, Stack v4, Theme Update, Hugo, Starter]
+writingMode: human
 ---
 
 Liquid Stack is built on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blogging foundation and expands it through a visual system, homepage widgets, presentation pages, and management tools into a complete personal-site starter.
@@ -60,6 +61,8 @@ The sidebar, homepage widgets, management menu, article actions, and dashboard u
 
 A profile widget at the top of the homepage presents the avatar, greeting, site description, and social links. Its text, image, and links can be replaced while keeping the component structure.
 
+On phones, the profile area progressively contracts into a shared top bar as the reader scrolls. The compact state keeps the avatar, title, theme control, language control, and menu within reach while preserving the page's visual continuity.
+
 ### Feature shortcut cards
 
 Shortcut cards lead to the launchpad, About page, dashboard, and photo wall while previewing application icons or gallery content. Replacing their source data automatically updates the previews, and the complete blog feed remains below them.
@@ -86,6 +89,8 @@ Post lists, article pages, and archive lists format dates using the visitor's br
 
 Article pages add print, copy-link, and system-share actions. Chinese pages support Weibo, QQ, and X; English pages support X, Reddit, LinkedIn, WhatsApp, and email. Printed articles include author and source attribution.
 
+Posts may also declare optional human-written or AI-assisted writing metadata. The selected bilingual label appears with the article actions, while posts without the field retain the original footer.
+
 ### Automatic language switching
 
 English and Simplified Chinese share the same homepage, sidebar, articles, launchpad, photo wall, About page, and dashboard layouts.
@@ -108,6 +113,8 @@ The launchpad presents software, creative work, research projects, or useful lin
 
 The public starter includes complete examples. Replacing project data and images updates both the launchpad and its homepage widget.
 
+An additional fictional product catalog demonstrates a second data-driven presentation pattern with search, status filtering, sorting, collapsible groups, and responsive cards. It remains independent from the launchpad and can be removed when it is not useful.
+
 ### Interactive photo wall
 
 The photo wall supports portrait and landscape images without forcing one crop. Visitors can rearrange photos by dragging them and open a focused view; the arrangement is stored in the current browser.
@@ -119,6 +126,8 @@ It works for photography, travel, design work, events, and project screenshots. 
 The About page keeps its entrance animation, timeline, floating menu, and section layout. A fictional résumé demonstrates the design without limiting how the page can be used.
 
 It can become a personal introduction, site story, team page, portfolio history, or formal résumé without rebuilding the layout and motion.
+
+On touch devices, its floating section navigation opens on tap and closes after selection or an outside tap, keeping long pages practical without occupying the reading area permanently.
 
 ## Management, statistics, and interaction
 
@@ -144,6 +153,8 @@ Comments continue to use Stack's Waline support with theme-matched cards, typogr
 
 Users only need to provide their own Waline endpoint; the demo does not connect to a personal comment database.
 
+Sites with a compatible backend may also enable the documented upload-session and comment-verification hooks. They stay disabled by default so the starter does not imply security checks that a backend has not implemented.
+
 ### Friend links and applications
 
 The friend-link module expands the compact link list into site cards, exchange rules, application and contact actions, and an optional embedded form. A separate platform section can link to GitHub, portfolios, or other public profiles.
@@ -157,6 +168,8 @@ Liquid Stack continues to use the official Stack v4.0.3 release as its blog foun
 ### Generic examples and privacy
 
 The public starter keeps the pages, homepage widgets, management tools, and bilingual examples without publishing the original author's private posts, real résumé, avatar, or service credentials. Sample projects, images, logos, comments, and management links can all be replaced.
+
+The included Web App manifest, install icons, Apple standalone metadata, and browser theme colours provide a basic add-to-home-screen experience. Offline caching is not enabled.
 
 ### Suitable sites
 

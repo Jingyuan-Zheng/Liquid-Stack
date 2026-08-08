@@ -24,4 +24,11 @@
             value_field: '{{tags.*.name}}'
             display_fields: ['{{tags.*.name}}']
             search_fields: ['{{tags.*.name}}']
+          - label: Writing mode
+            name: writingMode
+            widget: select
+            required: false
+            options:
+              - { label: Written by the author, value: human }
+              - { label: AI-assisted writing, value: aigc-assisted }
           - { label: Article, name: body, widget: markdown }

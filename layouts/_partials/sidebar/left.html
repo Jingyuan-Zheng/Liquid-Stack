@@ -1,9 +1,17 @@
 <aside class="sidebar left-sidebar sticky {{ if .Site.Params.sidebar.compact }}compact{{ end }}">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
+    <button type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
+        <span class="mobile-menu-icon mobile-menu-icon--menu" aria-hidden="true">{{ partial "helper/icon" "menu" }}</span>
     </button>
+
+    <div class="mobile-profile-controls" aria-label="{{ cond (hasPrefix .Language.Lang "zh") "页面设置" "Page settings" }}">
+        <button type="button" class="mobile-profile-control" data-mobile-scheme-toggle aria-label="{{ cond (hasPrefix .Language.Lang "zh") "切换深浅色模式" "Toggle dark mode" }}">
+            <span class="mobile-profile-control__sun">{{ partial "helper/icon" "sun" }}</span>
+            <span class="mobile-profile-control__moon">{{ partial "helper/icon" "moon" }}</span>
+        </button>
+        <button type="button" class="mobile-profile-control" data-mobile-language-toggle aria-label="{{ cond (hasPrefix .Language.Lang "zh") "切换语言" "Switch language" }}">
+            {{ partial "helper/icon" "language" }}
+        </button>
+    </div>
 
     <header>
         {{ with .Site.Params.sidebar.avatar }}

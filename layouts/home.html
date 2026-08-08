@@ -6,6 +6,7 @@
     {{ $pag := .Paginate $visible }}
     {{ $apps := slice }}{{ with hugo.Data.launchpad }}{{ range . }}{{ $apps = $apps | append . }}{{ end }}{{ end }}{{ $apps = sort $apps "order" }}
     {{ $pictures := slice }}{{ with index hugo.Data "photo-wall" }}{{ range . }}{{ $pictures = $pictures | append . }}{{ end }}{{ end }}{{ $pictures = sort $pictures "order" }}
+    {{ $products := slice }}{{ with index hugo.Data "product-catalog" }}{{ range . }}{{ $products = $products | append . }}{{ end }}{{ end }}
     <section class="home-profile" aria-labelledby="home-profile-title">
         {{ with .Site.Params.sidebar.avatar }}{{ $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) }}{{ with $avatar }}
         {{ $announcementTitle := cond $isChinese "网站公告" "Website announcement" }}
@@ -38,6 +39,7 @@
         <a href="{{ "about/" | relLangURL }}" class="home-feature-card home-feature-card--resume"><div class="home-feature-card__copy"><p>{{ cond $isChinese "关于页面" "About page" }}</p><h2>{{ cond $isChinese "讲讲你的故事" "Tell your story" }}</h2></div><div class="home-resume-teaser__mark" aria-hidden="true">{{ partial "helper/icon" "user" }}</div></a>
         <a href="{{ "dashboard/" | relLangURL }}" class="home-feature-card home-feature-card--dashboard"><div class="home-feature-card__copy"><p>{{ cond $isChinese "仪表盘" "Dashboard" }}</p><h2>{{ cond $isChinese "查看站点状态" "View site status" }}</h2></div><div class="home-dashboard-teaser__mark" aria-hidden="true">{{ partial "helper/icon" "dashboard" }}</div></a>
         {{ if gt (len $pictures) 0 }}<a href="{{ "pictures/" | relLangURL }}" class="home-feature-card home-feature-card--gallery"><div class="home-feature-card__copy"><p>{{ cond $isChinese "照片墙" "Photo wall" }}</p><h2>{{ cond $isChinese "浏览示例素材" "Browse visual notes" }}</h2></div><div class="home-gallery-teaser__stack" aria-hidden="true">{{ range $i, $picture := first 4 $pictures }}<img src="{{ relURL $picture.image }}" alt="" loading="lazy" style="--gallery-teaser-left: {{ mul $i 36 }}px; --gallery-teaser-mobile-left: {{ mul $i 50 }}px; --gallery-teaser-rotate: {{ sub (mul $i 7) 10 }}deg; --gallery-teaser-hover-rotate: {{ sub (mul $i 4) 6 }}deg;"><!-- generic teaser -->{{ end }}</div></a>{{ end }}
+        {{ if gt (len $products) 0 }}<a href="{{ "product-catalog/" | relLangURL }}" class="home-feature-card home-feature-card--catalog"><div class="home-feature-card__copy"><p>{{ cond $isChinese "可选组件" "Optional component" }}</p><h2>{{ cond $isChinese "浏览产品目录" "Browse product catalog" }}</h2></div><div class="home-catalog-teaser" aria-hidden="true">{{ range first 3 $products }}<span>{{ partial "helper/icon" .icon }}</span>{{ end }}</div></a>{{ end }}
     </section>
     <section class="article-list">{{ range $pag.Pages }}{{ partial "article-list/default" . }}{{ end }}</section>{{ partial "pagination.html" . }}{{ partial "footer/footer" . }}
 {{ end }}

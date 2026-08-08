@@ -2,7 +2,18 @@
 
 [简体中文](README.zh.md) · [Theme demo](https://liquid-stack.pages.dev/) · [Production site](https://jingyuan-zheng.github.io/) · [Use this template](https://github.com/new?template_name=Liquid-Stack&template_owner=Jingyuan-Zheng)
 
-Liquid Stack v1.1.0 is a complete bilingual Hugo site starter built on the unmodified [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blog foundation and adds a profile homepage, launchpad, interactive photo wall, content dashboard, Sveltia CMS, enhanced Waline integration, friend-link workflow, bilingual sitemaps, and ready-to-edit sample content.
+Liquid Stack v1.2.0 is a complete bilingual Hugo site starter built on the unmodified [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) v4.0.3. It keeps Stack's blog foundation and adds a profile homepage, launchpad, interactive photo wall, content dashboard, Sveltia CMS, enhanced Waline integration, friend-link workflow, bilingual sitemaps, and ready-to-edit sample content.
+
+## What's new in v1.2.0
+
+- A shared mobile profile top bar with progressive scroll motion, theme and language controls, and consistent menu behaviour
+- Touch-friendly floating navigation for long About or résumé pages
+- An optional fictional product-catalog demo with bilingual data, search, filtering, sorting, collapsible groups, and mobile cards
+- Baseline Web App support with install icons, a manifest, standalone metadata, and light/dark browser theme colours
+- Optional secure Waline upload and comment-verification hooks, disabled until a compatible backend is configured
+- Optional human-written and AI-assisted article labels, including CMS controls and bilingual examples
+
+Read the bilingual [Liquid Stack 1.2.0 release note](https://liquid-stack.pages.dev/p/liquid-stack-1-2-0/) for the user-facing update, or see [`docs/feature-port-checklist.md`](docs/feature-port-checklist.md) for the implementation and validation record.
 
 ## Screenshots
 
@@ -35,6 +46,7 @@ See the complete annotated gallery on the [project website](https://jingyuan-zhe
 - A consistent rounded-corner hierarchy across article cards, homepage widgets, panels, controls, and badges
 - Lucide line icons for interface actions and navigation
 - A neutral grey-lavender palette with restrained functional accents
+- Baseline Web App metadata for install icons, standalone display, and browser theme colors (without offline caching)
 
 ### Homepage widgets
 
@@ -54,6 +66,8 @@ See the complete annotated gallery on the [project website](https://jingyuan-zhe
 - A data-driven project launchpad with icons, previews, article links, and repository links
 - A draggable photo wall for portrait and landscape images with a focused viewer and browser-saved positions
 - An animated About layout with timeline sections and a floating menu that can present a profile, site story, portfolio, or résumé
+- An optional fictional product catalog demonstrating data-driven search, sorting, filters, and responsive tables
+- Optional per-article authorship labels for human-written and AI-assisted content
 
 ### Management and interaction
 
@@ -100,8 +114,10 @@ The public demo runs on Cloudflare Pages and is connected to this repository: ea
 - `data/launchpad/` — launchpad projects
 - `data/photo-wall/` — interactive gallery entries
 - `data/friend-links/` — friend-link cards
+- `data/product-catalog.yaml` — optional fictional product-catalog records
 - `examples/email-templates/` — sanitized reader-reply and backlink-approval HTML emails
 - `assets/admin/` and `layouts/admin/` — generated Sveltia CMS configuration
+- `docs/waline-secure-uploads.md` — optional secure-upload backend contract
 
 The vendored theme matches the official Stack v4.0.3 release. Liquid Stack adds its site features from the project root. Read [Welcome to Liquid Stack: New Theme Features](https://liquid-stack.pages.dev/p/welcome-to-liquid-stack/) for the complete guide.
 
